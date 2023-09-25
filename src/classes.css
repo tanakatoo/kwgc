@@ -109,6 +109,10 @@ p {
   font-size: 1.5rem;
 }
 
+.hide{
+  display: none;
+}
+
 /* remove all padding and margins on table */
 table {
   border-spacing: 0;
@@ -130,25 +134,35 @@ tbody tr:nth-child(odd) {
 }
 
 table td.register{
-  min-width: 120px;
+  max-width: 120px;
+  white-space:wrap;
 }
 table td.className{
-  min-width: 200px;
+  /* min-width: max-content; */
+  white-space:wrap;
+  padding-right:1rem;
 }
 table td.age{
-  min-width: 100px;
+  min-width: max-content;
+  max-width: 80px;
 }
 table td.dates{
-  min-width: 130px;
+  min-width: max-content;
+  white-space:nowrap;
+  padding-right:1rem;
 }
 table td.time{
-  min-width: 125px;
+  min-width: max-content;
+  white-space:wrap;
+  padding-right:1rem;
 }
 table td.tuition{
-  min-width: 60px;
+  min-width: max-content;
+  padding-right: 1rem;
 }
 table td.notes{
   min-width: 200px;
+  max-width:500px;
 }
 
 /* utilities */
@@ -345,7 +359,9 @@ ul.bullet li {
   
 }
 
-
+.nowrap{
+  white-space: nowrap;
+}
 
 /* custom checkbox */
 /* base code from https://codepen.io/quinlo/pen/ReMRXz */

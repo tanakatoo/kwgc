@@ -110,7 +110,15 @@ if($decoded['rows'] != null){
     }
     
     
-    
+     //determine if they can register yet
+            //users can only register if it is after 12 pm on the registration date 
+            date_default_timezone_set('America/New_York');
+            $canRegister=false;
+            if(date('Y-m-d') > $array_classes[$i]['regStartDate'] ||
+                                            (date('Y-m-d') == $array_classes[$i]['regStartDate'] && 
+                                            time() >= strtotime("12:00:00"))) {
+                                            $canRegister=true;
+                                            }
 
     //create an array with key value pairs for data to display
     $array_classes[$i]=array(
@@ -118,8 +126,10 @@ if($decoded['rows'] != null){
         "age"=>$decoded['rows'][$i]['category2'],
         "className"=>$decoded['rows'][$i]['category1'],
         "level"=>$decoded['rows'][$i]['category3'],
-        "startTime"=>$decoded['rows'][$i]['start_time'],
-        "endTime"=>$decoded['rows'][$i]['end_time'],
+        // "startTime"=>$decoded['rows'][$i]['start_time'],
+        "startTime" => date("g:i", strtotime($decoded['rows'][$i]['start_time'])),
+        // "endTime"=>$decoded['rows'][$i]['end_time'],
+        "endTime"=> date("g:ia", strtotime($decoded['rows'][$i]['end_time'])),
         "startDate"=>$decoded['rows'][$i]['start_date'],
         "endDate"=>$decoded['rows'][$i]['end_date'],
         "dayOfWeek"=>$dayOfWeek,
@@ -134,7 +144,9 @@ if($decoded['rows'] != null){
         "minAge_yrs"=>$minAge_yr,
         "minAge_mths"=>$minAge_mths,
         "minAge_original"=>$decoded['rows'][$i]['min_age'],
+        // 'regStartDate'=>'2023-09-16',
         "regStartDate"=>$decoded['rows'][$i]['reg_start_date'],
+        'canRegister'=>$canRegister,
         "regEndDate"=>$decoded['rows'][$i]['reg_end_date'],
         "desc"=>$decoded['rows'][$i]['description']
     );
@@ -152,6 +164,7 @@ if($decoded['rows'] != null){
 
     <script type="text/javascript">
             const originalClasses = <?php echo json_encode($array_classes); ?>;
+            const sessionNames=<?php echo json_encode($sessionNames); ?>;
     </script>
 
     <div class="container-margin">
@@ -241,101 +254,7 @@ if($decoded['rows'] != null){
     </div>
         <div id="results">
 
-        <?php for($j = 0;$j< count($sessionNames);$j++){
-            //print out session name
-            ?>
-            <h3><?php echo $sessionNames[$j]; ?></h3>
-            <?php } ?>
-        <table>
-            <thead>
-                <tr>
-                    <td class="register"></td>
-                    <td class="className">Class/Level</td>
-                    <td class="age">Age</td>
-                    <td class="dates">Dates</td>
-                    <td class="time">Time</td>
-                    <td class="tuition">Tuition</td>
-                    <td class="notes">Notes</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php for($i = 0; $i < count($array_classes); $i++){ 
-                    if($decoded['rows'][$i]['session'] == $sessionNames[$j]) 
-                    ?>
-                <tr>
-                    <td  class="register">
-                        <div class="flex flex-col">
-                            <span>
-                                <?php if(date('Y-m-d') > $array_classes[$i]['regStartDate'] ||
-                                    (date('Y-m-d') == $array_classes[$i]['regStartDate'] && 
-                                    time() >= strtotime("12:00:00"))) {?>
-                                <a href="<?php echo $array_classes[$i]['link']; ?>"><?php if($array_classes[$i]['opening'] > 0){ ?>Register 
-                                <?php } else{ ?>
-                                    Waitlist
-                                <?php } ?>
-                                </a>
-                               
-                            </span>
-                            <span class="tab"><?php if($array_classes[$i]['opening'] > 0){ echo $array_classes[$i]['opening']?> opening(s) 
-                                <?php } else{
-                                    echo abs($array_classes[$i]['opening'])  ?> waiting
-                                <?php } ?>
-                                <?php } else{ ?>
-                                    Registration not yet open
-                                <?php } ?>
-                            </span>
-                        </div>
-                    </td>
-                    <td class="className">
-                        <div class="flex flex-col">
-                            <span><?php echo $array_classes[$i]['className']; ?></span>
-                            <span class="tab"><?php echo $array_classes[$i]['level']; ?></span>
-                        </div>
-                    </td>
-                    <td class="age">
-                      
-                       
-                    <?php if($array_classes[$i]['minAge_yrs'] !=""){
-                            echo $array_classes[$i]['minAge_yrs']; 
-                            
-                            if($array_classes[$i]['minAge_mths'] != "") {?>yr 
-                            <?php 
-                            };
-                         }; ?>
-                        <?php if ($array_classes[$i]['minAge_mths'] !=""){
-                            echo $array_classes[$i]['minAge_mths']; 
-                            ?>mths <?php } ?>
-                            <?php if($array_classes[$i]['maxAge_yrs'] == ""){
-                                ?>+ <?php
-                            } else{
-                                ?> - <?php
-                                if($array_classes[$i]['maxAge_yrs'] !=""){
-                                    echo $array_classes[$i]['maxAge_yrs']; 
-                                    if($array_classes[$i]['minAge_mths'] != "") {?>yr 
-                                        <?php 
-                                        };  
-                                    }; ?> 
-                                <?php if ($array_classes[$i]['maxAge_mths'] !="11"){
-                                    echo $array_classes[$i]['maxAge_mths']; 
-                                    ?>mths <?php } 
-                            }?>
-                        
-                    </td>
-                    <td class="dates">
-                        <div  class="flex flex-col">
-                            <span><?php echo $array_classes[$i]['dayOfWeek']; ?></span>
-                            <span class="tab"><?php echo $array_classes[$i]['startDate']; ?> to</span>
-                            <span class="tab"><?php echo $array_classes[$i]['endDate']; ?></span>
-                        </div>
-                    </td>
-                    <td class="time"><?php echo date("g:i", strtotime($array_classes[$i]['startTime'])); ?> - <?php echo date("g:ia", strtotime($array_classes[$i]['endTime'])); ?></td>
-                    <td class="tuition">$<?php echo $array_classes[$i]['tuition']; ?></td>
-                    <td class="notes"><?php echo $array_classes[$i]['desc']; ?></td>
-                </tr>
-                <?php } ?>
-                
-            </tbody>
-        </table>
+        
         </div>
 
 
