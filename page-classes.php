@@ -170,10 +170,22 @@ if($decoded['rows'] != null){
     //using this info, make the buttons for filtering 
     //add array_classes to JS so it can be used
     //sort the arrays first, case insensitive
-    usort($levels, 'strnatcasecmp');
     usort($classNames, 'strnatcasecmp');
     usort($ageGroups, 'strnatcasecmp');
     usort($sessionNames, 'strnatcasecmp');
+    
+    //levels cannot be alphabetical, must be in "Beginner, Intermediate, Advanced"
+    $sortedLevel=[];
+    for ($i=0;$i<count($levels);$i++){
+        if($levels[$i] =="Beginner"){
+            $sortedLevel[0]="Beginner";
+        } else if($levels[$i]=="Intermediate"){
+            $sortedLevel[1]="Intermediate";
+        } else if($levels[$i]=="Advanced"){
+            $sortedLevel[2]="Advanced";
+        }
+    }
+
     ?>
 
     <script type="text/javascript">
@@ -238,14 +250,15 @@ if($decoded['rows'] != null){
             </div>
             <div class="levelCheck ">
                 <div class="checkbox-wrap">
-                    <?php for ($i = 0; $i < count($levels); $i++){ ?>
+                    <?php for ($i = 0; $i < count($sortedLevel); $i++){ 
+                        if($sortedLevel[$i] !='' || $sortedLevel[$i] != null){?>
                         <ul class="checkbox-tag">
                             <li class="check">
-                                <input class="checkbox-input" data-type="level" id="level<?php echo $i?>" name="level" type="checkbox" value="<?php echo $levels[$i]?>">
-                                <label class="checkbox-text" for="level<?php echo $i?>"><?php echo $levels[$i]?></label>
+                                <input class="checkbox-input" data-type="level" id="level<?php echo $i?>" name="level" type="checkbox" value="<?php echo $sortedLevel[$i]?>">
+                                <label class="checkbox-text" for="level<?php echo $i?>"><?php echo $sortedLevel[$i]?></label>
                             </li>
                         </ul>
-                    <?php }?>
+                    <?php }}?>
                 </div>
             </div>
             <div class="available flex margin-top-xsmall">
