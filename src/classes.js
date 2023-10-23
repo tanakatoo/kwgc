@@ -3,6 +3,133 @@ console.log('got classes!', originalClasses)
 console.log('got sessionNames!', sessionNames)
 let filteredClasses = []
 
+//disable
+function resetFilter() {
+    //get all the elements where data-type='class' and data-type='level'
+
+
+
+
+
+
+
+}
+
+//put an event listener on all age checkboxes
+document.querySelectorAll('[data-type="age"]').forEach(c => {
+    c.addEventListener("click", (e) => {
+        //if age is selected then only enable those that have classes
+        //disable all first
+
+
+
+
+        let criteriaAge = new Set()
+        let criteriaCurrentClass = new Set()
+        let criteriaClass = new Set()
+
+        //find out what criteria from age is checked, and saved the ones that are checked before from class and level
+        const criteria = document.querySelectorAll(':checked')
+        console.log('criteria', criteria)
+        Array.from(criteria).forEach(c => {
+            if (c.dataset.type == "age") {
+                criteriaAge.add(c.value)
+            } else if (c.dataset.type == "class") {
+                criteriaCurrentClass.add(c.value)
+            }
+
+        })
+
+        //uncheck all class checkboxes
+        document.querySelectorAll('[data-type="class"]').forEach(c => {
+            c.disabled = true;
+        })
+        document.querySelectorAll('[data-type="class"]').forEach(c => {
+
+            let next = c.nextElementSibling;
+            next.classList.add('checkbox-disabled');
+        })
+        document.querySelectorAll('[data-type="class"]').forEach(c => {
+            c.checked = false;
+        })
+        //enable all classes that have the selected age, and keep the checked class and level if they are in the selected age
+        //for each class in originalClasses, if it has the same age as the checkboxes, enable it
+        originalClasses.forEach(c => {
+            if (criteriaAge.has(c.age)) {
+                if (criteriaCurrentClass.has(c.className)) {
+                    document.querySelector(`[data-type="class"][value="${c.className}"]`).checked = true;
+                }
+                criteriaClass.add(c.className)
+                document.querySelector(`[data-type="class"][value="${c.className}"]`).disabled = false;
+                document.querySelector(`[data-type="class"][value="${c.className}"]`).nextElementSibling.classList.remove('checkbox-disabled');
+
+
+            }
+        })
+    })
+})
+
+//put an event listener on all class checkboxes
+document.querySelectorAll('[data-type="class"]').forEach(c => {
+    c.addEventListener("click", (e) => {
+        //if class is selected then only enable those that have the levels
+
+
+
+        let criteriaClass = new Set()
+        let criteriaCurrentLevel = new Set()
+        let criteriaLevel = new Set()
+        //find out what criteria from age is checked, and saved the ones that are checked before from class and level
+        const criteria = document.querySelectorAll(':checked')
+
+        Array.from(criteria).forEach(c => {
+
+            if (c.dataset.type == "class") {
+                criteriaClass.add(c.value)
+            } else if (c.dataset.type == "level") {
+                criteriaCurrentLevel.add(c.value)
+            }
+
+        })
+
+        console.log('selected levels already', criteriaCurrentLevel)
+
+        //reset all levels and redo
+        document.querySelectorAll('[data-type="level"]').forEach(l => {
+            l.disabled = true;
+        })
+        document.querySelectorAll('[data-type="level"]').forEach(l => {
+
+            let next = l.nextElementSibling;
+            next.classList.add('checkbox-disabled');
+        })
+        document.querySelectorAll('[data-type="level"]').forEach(c => {
+            c.checked = false;
+        })
+        //enable all level that have the selected class, and keep the checked level and level if they are in the selected age
+        //for each class in originalClasses, if it has the same age as the checkboxes, enable it
+        originalClasses.forEach(c => {
+
+            if (criteriaClass.has(c.className)) {
+                console.log(c)
+                if (criteriaCurrentLevel.has(c.level)) {
+                    document.querySelector(`[data-type="level"][value="${c.level}"]`).checked = true;
+                }
+                //only add if there is a level not empty
+                if (c.level != "") {
+                    criteriaLevel.add(c.level)
+
+                    document.querySelector(`[data-type="level"][value="${c.level}"]`).disabled = false;
+                    document.querySelector(`[data-type="level"][value="${c.level}"]`).nextElementSibling.classList.remove('checkbox-disabled');
+                } else {
+                    console.log('no level', c)
+                }
+
+            }
+        })
+
+    })
+})
 
 
 
@@ -85,14 +212,16 @@ function makeTableDesktop(classes, criteriaSession) {
         //if the user filtered by session, only show those sessions
         if ((criteriaSession.size > 0 && criteriaSession.has(session)) ||
             criteriaSession.size == 0) {
+
             makeSessionSection(session, container);
 
             //check if there are any classes in this session
             let classesInSession = false;
+
             for (let row of classes) {
                 if (row.session == session) {
                     classesInSession = true;
-
+                    break;
                 }
             }
             if (!classesInSession) {
@@ -158,6 +287,7 @@ function createTableHead(table, container) {
 }
 
 function createTableBody(session, table, container, classes) {
+
     const tbody = document.createElement("tbody");
 
     for (let row of classes) {

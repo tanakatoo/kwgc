@@ -28,14 +28,22 @@ if($decoded['rows'] != null){
 
     for ($i = 0; $i < count($decoded['rows']); $i++) { 
 
-     
+       
             if($i !=0 && $decoded['rows'][$i]['session']!='' && 
                 $decoded['rows'][$i]['session'] != $decoded['rows'][$i-1]['session'] &&
                 in_array($decoded['rows'][$i]['session'],$sessionNames) == false){
-                
+                       
                         $sessionNames[]=$decoded['rows'][$i]['session'];
                     
                 
+            } else{
+                //this is the first one so add it
+                if($i==0 && $decoded['rows'][$i]['session']!='' ){
+                    
+                    $sessionNames[]=$decoded['rows'][$i]['session'];
+                   
+                }
+
             }
             //this is for age
             if($i !=0 && $decoded['rows'][$i]['category2']!='' && 
@@ -45,18 +53,42 @@ if($decoded['rows'] != null){
                         $ageGroups[]=$decoded['rows'][$i]['category2'];
                     
                 
+            }else{
+                //this is the first one so add it
+                if($i==0 && $decoded['rows'][$i]['category2']!='' ){
+                    
+                    $ageGroups[]=$decoded['rows'][$i]['category2'];
+                   
+                }
+
             }
             //this is for class name
             if($i !=0 && $decoded['rows'][$i]['category1']!='' && 
                 $decoded['rows'][$i]['category1'] != $decoded['rows'][$i-1]['category1'] &&
                 in_array($decoded['rows'][$i]['category1'],$classNames) == false){
                 $classNames[]=$decoded['rows'][$i]['category1'];
+            }else{
+                //this is the first one so add it
+                if($i==0 && $decoded['rows'][$i]['category1']!='' ){
+                    
+                    $classNames[]=$decoded['rows'][$i]['category1'];
+                   
+                }
+
             }
             //this is for level
             if($i !=0 && $decoded['rows'][$i]['category3']!='' && 
                 $decoded['rows'][$i]['category3'] != $decoded['rows'][$i-1]['category3'] &&
                 in_array($decoded['rows'][$i]['category3'],$levels) == false){
                 $levels[]=$decoded['rows'][$i]['category3'];
+            }else{
+                //this is the first one so add it
+                if($i==0 && $decoded['rows'][$i]['category3']!='' ){
+                    
+                    $levels[]=$decoded['rows'][$i]['category3'];
+                   
+                }
+
             }
 
         
@@ -238,8 +270,8 @@ if($decoded['rows'] != null){
                     <?php for ($i = 0; $i < count($classNames); $i++){ ?>
                         <ul class="checkbox-tag">
                             <li class="check">
-                                <input class="checkbox-input" data-type="class" id="class<?php echo $i?>" type="checkbox" value="<?php echo $classNames[$i]?>">
-                                <label class="checkbox-text" for="class<?php echo $i?>"><?php echo $classNames[$i]?></label>
+                                <input class="checkbox-input" data-type="class" id="class<?php echo $i?>" disabled type="checkbox" value="<?php echo $classNames[$i]?>">
+                                <label class="checkbox-text checkbox-disabled" for="class<?php echo $i?>"><?php echo $classNames[$i]?></label>
                             </li>
                         </ul>
                     <?php }?>
@@ -254,8 +286,8 @@ if($decoded['rows'] != null){
                         if($sortedLevel[$i] !='' || $sortedLevel[$i] != null){?>
                         <ul class="checkbox-tag">
                             <li class="check">
-                                <input class="checkbox-input" data-type="level" id="level<?php echo $i?>" name="level" type="checkbox" value="<?php echo $sortedLevel[$i]?>">
-                                <label class="checkbox-text" for="level<?php echo $i?>"><?php echo $sortedLevel[$i]?></label>
+                                <input class="checkbox-input" data-type="level" id="level<?php echo $i?>" name="level" disabled type="checkbox" value="<?php echo $sortedLevel[$i]?>">
+                                <label class="checkbox-text checkbox-disabled" for="level<?php echo $i?>"><?php echo $sortedLevel[$i]?></label>
                             </li>
                         </ul>
                     <?php }}?>

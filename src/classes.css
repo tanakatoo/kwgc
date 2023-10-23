@@ -9,6 +9,7 @@
 
 :root {
   --border-grey:#5d5d5d;
+  --disabled-grey: #c5c5c5;
   --spacing-xsmall: 0.7rem;
   --spacing-small: 1.5rem;
   --spacing-medium: 3rem;
@@ -143,7 +144,7 @@ table td.className{
   padding-right:1rem;
 }
 table td.age{
-  min-width: max-content;
+  min-width: 50px;
   max-width: 80px;
 }
 table td.dates{
@@ -365,6 +366,11 @@ ul.bullet li {
 
 /* custom checkbox */
 /* base code from https://codepen.io/quinlo/pen/ReMRXz */
+ul.checkbox-tag li label.checkbox-disabled{
+  color: var(--disabled-grey);
+  border: 1px solid var(--disabled-grey);
+  cursor: unset;
+}
 .checkbox-wrap{
     font-weight:300;
     display: flex;
