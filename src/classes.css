@@ -422,53 +422,114 @@ ul.checkbox-tag li input[type="checkbox"] {
 
 /* end of checkbox css */
 
+
+/* accordion */
+.advanced .accordion {
+  background-color: #eee !important;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  margin-top:2rem;
+  font-size: 1.7rem;
+  border-radius: 0;
+}
+
+.advanced .accordion:active{
+  font-size: 1.7rem;
+  background-color: #eee;
+  color: black;
+}
+
+.advanced .accordion:focus{
+  font-size: 1.7rem;
+  background-color: #eee;
+  color: black;
+}
+.advanced .accordion:hover{
+  color: black;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .advanced .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+  border:1px solid #eee;
+  padding-bottom: 2rem;
+}
 /* Filter section grid */
 .filter-grid{
   display: grid;
   grid-template-areas: 
   "session sessionCheck"
   "age ageCheck"
-  "class classCheck"
-  "level levelCheck"
-  "available availableCheck";
-  grid-template-columns: max-content auto;
+  "advanced advanced";
+  grid-auto-rows: min-content;
+  grid-template-columns: min-content auto;
   column-gap: 3rem;
   row-gap:1rem;
   padding-top:2rem;
 }
 .filter-grid .session{
-  grid-area: "session";
+  grid-area: session;
 }
 .filter-grid .sessionCheck{
-  grid-area: "sessionCheck";
+  grid-area: sessionCheck;
 }
 
 .filter-grid .age{
-  grid-area: "age";
+  grid-area: age;
 }
 .filter-grid .ageCheck{
-  grid-area: "ageCheck";
+  grid-area: ageCheck;
+}
+.filter-grid .class{
+  grid-area: class;
 }
 
-.filter-grid .class{
-  grid-area: "class";
+.filter-grid .advanced{
+  grid-area: advanced;
+ 
+}
+.filter-grid .advanced .advanced-filter-grid{
+  display: grid;
+  grid-template-areas: 
+  "class classCheck"
+  "level levelCheck"
+  "avail availableCheck";
+  grid-auto-rows: min-content;
+  grid-template-columns: max-content auto;
+  column-gap: 3rem;
+  row-gap:1rem;
+  padding-top:2rem;
 }
 .filter-grid .classCheck{
-  grid-area: "classCheck";
+  grid-area: classCheck;
 }
 
 .filter-grid .level{
-  grid-area: "level";
+  grid-area: level;
 }
 .filter-grid .levelCheck{
-  grid-area: "levelCheck";
+  grid-area: levelCheck;
 }
 
 .filter-grid .available{
-  grid-area: "available";
+  grid-area: avail;
 }
 .filter-grid .availableCheck{
-  grid-area: "availableCheck";
+  grid-area: availableCheck;
 }
 
 .flex{
@@ -573,11 +634,24 @@ ul.checkbox-tag li input[type="checkbox"] {
     "sessionCheck"
     "age" 
     "ageCheck"
+    "advanced"; 
+    
+    grid-template-columns: auto;
+    row-gap: 1rem;
+  }
+  .filter-grid .advanced .advanced-filter-grid{
+    
+    grid-template-areas: 
     "class" 
     "classCheck"
     "level" 
-    "levelCheck";
+    "levelCheck"
+    "avail" 
+    "availableCheck";
+  
     grid-template-columns: auto;
-    row-gap: 1rem;
+ 
+    row-gap:1rem;
+    padding-top:2rem;
   }
 }

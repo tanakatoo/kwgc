@@ -20,11 +20,19 @@ $array_classes=array();
 if($decoded['rows'] != null){
 
     //remove all rows from the array where category1 is "PD Days" or "Camps"
+
     for ($i = 0; $i < count($decoded['rows']); $i++) { 
-        if($decoded['rows'][$i]['category1'] == "PD Days" || $decoded['rows'][$i]['category1'] == "Camps"){
+        if($decoded['rows'][$i]['session'] == "PD Days" 
+        || $decoded['rows'][$i]['session'] == "2023-24 Camp"
+        || $decoded['rows'][$i]['session'] == "Camps"){
+           
             unset($decoded['rows'][$i]);
         }
     }
+    //print out all where session is empty
+    // var_dump($decoded['rows'][148]);
+    // print_r($decoded['rows'][145]);
+   
 
     for ($i = 0; $i < count($decoded['rows']); $i++) { 
 
@@ -262,51 +270,60 @@ if($decoded['rows'] != null){
                     <?php }?>
                 </div>
             </div>
-            <div class="class flex margin-top-xsmall">
-                Class
+            <div class='advanced'>
+
+                <button class="accordion">+ Advanced Search</button>
+                <div class="panel">
+                    <div class='advanced-filter-grid'>
+                    <div class="class flex margin-top-xsmall">
+                        Class
+                    </div>  
+                    <div class="classCheck">
+                        <div class="checkbox-wrap">
+                            <?php for ($i = 0; $i < count($classNames); $i++){ ?>
+                                <ul class="checkbox-tag">
+                                    <li class="check">
+                                        <input class="checkbox-input" data-type="class" id="class<?php echo $i?>" disabled type="checkbox" value="<?php echo $classNames[$i]?>">
+                                        <label class="checkbox-text checkbox-disabled" for="class<?php echo $i?>"><?php echo $classNames[$i]?></label>
+                                    </li>
+                                </ul>
+                            <?php }?>
+                        </div>
+                    </div>
+                    <div class="level flex margin-top-xsmall">
+                        Level
+                    </div>
+                    <div class="levelCheck ">
+                        <div class="checkbox-wrap">
+                            <?php for ($i = 0; $i < count($sortedLevel); $i++){ 
+                                if($sortedLevel[$i] !='' || $sortedLevel[$i] != null){?>
+                                <ul class="checkbox-tag">
+                                    <li class="check">
+                                        <input class="checkbox-input" data-type="level" id="level<?php echo $i?>" name="level" disabled type="checkbox" value="<?php echo $sortedLevel[$i]?>">
+                                        <label class="checkbox-text checkbox-disabled" for="level<?php echo $i?>"><?php echo $sortedLevel[$i]?></label>
+                                    </li>
+                                </ul>
+                            <?php }}?>
+                        </div>
+                    </div>
+                    <div class="avail flex margin-top-xsmall">
+                        Availability
+                    </div>
+                    <div class="availableCheck ">
+                        <div class="checkbox-wrap">
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="available" id="available" name="available" type="checkbox" value="true">
+                                    <label class="checkbox-text" for="available">Have openings</label>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                                </div>
+                </div>              
             </div>
-            <div class="classCheck">
-                <div class="checkbox-wrap">
-                    <?php for ($i = 0; $i < count($classNames); $i++){ ?>
-                        <ul class="checkbox-tag">
-                            <li class="check">
-                                <input class="checkbox-input" data-type="class" id="class<?php echo $i?>" disabled type="checkbox" value="<?php echo $classNames[$i]?>">
-                                <label class="checkbox-text checkbox-disabled" for="class<?php echo $i?>"><?php echo $classNames[$i]?></label>
-                            </li>
-                        </ul>
-                    <?php }?>
-                </div>
-            </div>
-            <div class="level flex margin-top-xsmall">
-                Level
-            </div>
-            <div class="levelCheck ">
-                <div class="checkbox-wrap">
-                    <?php for ($i = 0; $i < count($sortedLevel); $i++){ 
-                        if($sortedLevel[$i] !='' || $sortedLevel[$i] != null){?>
-                        <ul class="checkbox-tag">
-                            <li class="check">
-                                <input class="checkbox-input" data-type="level" id="level<?php echo $i?>" name="level" disabled type="checkbox" value="<?php echo $sortedLevel[$i]?>">
-                                <label class="checkbox-text checkbox-disabled" for="level<?php echo $i?>"><?php echo $sortedLevel[$i]?></label>
-                            </li>
-                        </ul>
-                    <?php }}?>
-                </div>
-            </div>
-            <div class="available flex margin-top-xsmall">
-                Availability
-            </div>
-            <div class="availableCheck ">
-                <div class="checkbox-wrap">
-                        <ul class="checkbox-tag">
-                            <li class="check">
-                                <input class="checkbox-input" data-type="available" id="available" name="available" type="checkbox" value="true">
-                                <label class="checkbox-text" for="available">Have openings</label>
-                            </li>
-                        </ul>
-                    
-                </div>
-            </div>
+            
         </div>
         <button id="search" class="button">Filter Classes</button>
         </div>
@@ -316,7 +333,7 @@ if($decoded['rows'] != null){
         
         </div>
 
-
+                            
     
     <?php 
 } else{

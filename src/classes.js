@@ -3,26 +3,30 @@ console.log('got classes!', originalClasses)
 console.log('got sessionNames!', sessionNames)
 let filteredClasses = []
 
-//disable
-function resetFilter() {
-    //get all the elements where data-type='class' and data-type='level'
 
 
 
 
+document.querySelector(".accordion").addEventListener("click", function () {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
 
+    /* Toggle between hiding and showing the active panel */
+    let panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+        panel.style.display = "none";
+    } else {
+        panel.style.display = "block";
+    }
+});
 
-
-}
 
 //put an event listener on all age checkboxes
 document.querySelectorAll('[data-type="age"]').forEach(c => {
     c.addEventListener("click", (e) => {
         //if age is selected then only enable those that have classes
         //disable all first
-
-
-
 
         let criteriaAge = new Set()
         let criteriaCurrentClass = new Set()
@@ -52,6 +56,18 @@ document.querySelectorAll('[data-type="age"]').forEach(c => {
         document.querySelectorAll('[data-type="class"]').forEach(c => {
             c.checked = false;
         })
+        //uncheck all level checkboxes
+        document.querySelectorAll('[data-type="level"]').forEach(c => {
+            c.disabled = true;
+        })
+        document.querySelectorAll('[data-type="level"]').forEach(c => {
+
+            let next = c.nextElementSibling;
+            next.classList.add('checkbox-disabled');
+        })
+        document.querySelectorAll('[data-type="level"]').forEach(c => {
+            c.checked = false;
+        })
         //enable all classes that have the selected age, and keep the checked class and level if they are in the selected age
         //for each class in originalClasses, if it has the same age as the checkboxes, enable it
         originalClasses.forEach(c => {
@@ -69,12 +85,31 @@ document.querySelectorAll('[data-type="age"]').forEach(c => {
     })
 })
 
+
+//put an event listener on all session checkboxes
+// document.querySelectorAll('[data-type="session"]').forEach(s => {
+//     s.addEventListener("change", (e) => {
+//         if (e.target.value == "2023 Fall Session")
+//             if (e.target.value == "2023 Leadership" ||
+//                 e.target.value == "2024 Winter Adaptive" ||
+//                 e.target.value == "Fall 2023 Private Lessons") {
+//                 //disable all of the ages
+
+//                 document.querySelectorAll('[data-type="age"]').forEach(a => {
+//                     a.setAttribute("disabled", true)
+//                     let next = a.nextElementSibling;
+//                     next.classList.add('checkbox-disabled');
+//                 })
+
+//             }
+//     })
+// })
+
+
 //put an event listener on all class checkboxes
 document.querySelectorAll('[data-type="class"]').forEach(c => {
     c.addEventListener("click", (e) => {
         //if class is selected then only enable those that have the levels
-
-
 
         let criteriaClass = new Set()
         let criteriaCurrentLevel = new Set()
