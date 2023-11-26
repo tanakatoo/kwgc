@@ -16,8 +16,12 @@ document.querySelector(".accordion").addEventListener("click", function () {
     let panel = this.nextElementSibling;
     if (panel.style.display === "block") {
         panel.style.display = "none";
+        document.querySelector(".searchIcon").innerHTML = '<i class="fa-solid fa-chevron-down"></i>'
+        document.querySelector("#searchSign").innerHTML = '<i class="fa-solid fa-plus"></i> '
     } else {
         panel.style.display = "block";
+        document.querySelector(".searchIcon").innerHTML = '<i class="fa-solid fa-chevron-up"></i>'
+        document.querySelector("#searchSign").innerHTML = '<i class="fa-solid fa-minus"></i> '
     }
 });
 
@@ -179,6 +183,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
     let criteriaClass = new Set()
     let criteriaLevel = new Set()
     let availability = false
+    let criteriaWeek = new Set()
     const criteria = document.querySelectorAll(':checked')
     //find out what kind of criteria it is
     Array.from(criteria).forEach(c => {
@@ -193,12 +198,16 @@ document.querySelector("#search").addEventListener("click", (e) => {
         } else if (c.dataset.type == "available") {
             availability = true
         }
+        else if (c.dataset.type == "week") {
+            criteriaWeek.add(c.value)
+        }
     })
     console.log(criteriaSession)
     console.log(criteriaAge)
     console.log(criteriaClass)
     console.log(criteriaLevel)
     console.log(availability)
+    console.log(criteriaWeek)
 
     for (let gymClass of originalClasses) {
         let add = true;
@@ -221,6 +230,9 @@ document.querySelector("#search").addEventListener("click", (e) => {
         if (criteriaLevel.size > 0 && !criteriaLevel.has(gymClass.level)) {
             add = false;
         }
+        if (criteriaWeek.size > 0 && !criteriaWeek.has(gymClass.dayOfWeek)) {
+            add = false;
+        }
         if (add) {
             filteredClasses.push(gymClass);
         }
@@ -229,6 +241,9 @@ document.querySelector("#search").addEventListener("click", (e) => {
 
 
     makeTableDesktop(filteredClasses, criteriaSession);
+
+    //jump to the results
+    window.location.href = "#results";
 })
 
 //run at first load

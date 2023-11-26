@@ -424,6 +424,9 @@ ul.checkbox-tag li input[type="checkbox"] {
 
 
 /* accordion */
+.searchIcon{
+  float:right;
+}
 .advanced .accordion {
   background-color: #eee !important;
   color: #444;
@@ -490,6 +493,7 @@ ul.checkbox-tag li input[type="checkbox"] {
 
 .filter-grid .age{
   grid-area: age;
+  white-space:nowrap;
 }
 .filter-grid .ageCheck{
   grid-area: ageCheck;
@@ -507,7 +511,9 @@ ul.checkbox-tag li input[type="checkbox"] {
   grid-template-areas: 
   "class classCheck"
   "level levelCheck"
+  "week weekCheck"
   "avail availableCheck";
+ 
   grid-auto-rows: min-content;
   grid-template-columns: max-content auto;
   column-gap: 3rem;
@@ -530,6 +536,13 @@ ul.checkbox-tag li input[type="checkbox"] {
 }
 .filter-grid .availableCheck{
   grid-area: availableCheck;
+}
+
+.filter-grid .week{
+  grid-area: week;
+}
+.filter-grid .weekCheck{
+  grid-area: weekCheck;
 }
 
 .flex{
@@ -646,6 +659,8 @@ ul.checkbox-tag li input[type="checkbox"] {
     "classCheck"
     "level" 
     "levelCheck"
+    "week" 
+    "weekCheck"
     "avail" 
     "availableCheck";
   

@@ -272,7 +272,9 @@ if($decoded['rows'] != null){
             </div>
             <div class='advanced'>
 
-                <button class="accordion">+ Advanced Search</button>
+                <button class="accordion">
+                    <span id="searchSign"><i class="fa-solid fa-plus"></i> </span> Advanced Search <span class="searchIcon"><i class="fa-solid fa-chevron-down"></i></span>
+                </button>
                 <div class="panel">
                     <div class='advanced-filter-grid'>
                     <div class="class flex margin-top-xsmall">
@@ -306,6 +308,56 @@ if($decoded['rows'] != null){
                             <?php }}?>
                         </div>
                     </div>
+                    <div class="week flex margin-top-xsmall">
+                        Day of the Week
+                    </div>
+                    <div class="weekCheck ">
+                        <div class="checkbox-wrap">
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="week" id="week1" type="checkbox" value="Monday">
+                                    <label class="checkbox-text" for="week1">Monday</label>
+                                </li>
+                            </ul>
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="week" id="week2" type="checkbox" value="Monday">
+                                    <label class="checkbox-text" for="week2">Tuesday</label>
+                                </li>
+                            </ul>
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="week" id="week3" type="checkbox" value="Wednesday">
+                                    <label class="checkbox-text" for="week3">Wednesday</label>
+                                </li>
+                            </ul>
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="week" id="week4" type="checkbox" value="Thursday">
+                                    <label class="checkbox-text" for="week4">Thursday</label>
+                                </li>
+                            </ul>
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="week" id="week5" type="checkbox" value="Friday">
+                                    <label class="checkbox-text" for="week5">Friday</label>
+                                </li>
+                            </ul>
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="week" id="week6" type="checkbox" value="Saturday">
+                                    <label class="checkbox-text" for="week6">Saturday</label>
+                                </li>
+                            </ul>
+                            <ul class="checkbox-tag">
+                                <li class="check">
+                                    <input class="checkbox-input" data-type="week" id="week7" type="checkbox" value="Sunday">
+                                    <label class="checkbox-text" for="week7">Sunday</label>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                    </div>
                     <div class="avail flex margin-top-xsmall">
                         Availability
                     </div>
@@ -320,7 +372,7 @@ if($decoded['rows'] != null){
                             
                         </div>
                     </div>
-                                </div>
+                    </div>
                 </div>              
             </div>
             
