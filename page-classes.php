@@ -235,6 +235,11 @@ if($decoded['rows'] != null){
 
     <div class="container-margin">
         <h1 class="text-center">Class Schedules</h1>
+        <div class="registerInfo">
+            <p>2024 Winter session registration is now open.</p>
+            <p>Winter camp registration will be opening on Dec. 1, 2023.</p>
+            <p>We strongly recommend <a href="https://app.jackrabbitclass.com/regv2.asp?id=526868" target="_blank">creating an account</a> in advance of registering for activities as spaces fill quickly.</p>
+        </div>
         <div class="filter-area">
             <div class="border-bottom">
                 <h3 class="">Class filter</h3>

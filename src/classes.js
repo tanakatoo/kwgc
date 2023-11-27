@@ -243,7 +243,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
     makeTableDesktop(filteredClasses, criteriaSession);
 
     //jump to the results
-    window.location.href = "#results";
+    window.location.href = "#search";
 })
 
 //run at first load
@@ -357,6 +357,7 @@ function createTableBody(session, table, container, classes) {
                 const a = document.createElement("a");
 
                 a.href = row.link
+                a.target = "_blank"
 
                 if (row.opening > 0) {
                     a.innerText = "Register"
