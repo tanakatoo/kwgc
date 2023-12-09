@@ -1,0 +1,692 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+:root {
+  --border-grey:#5d5d5d;
+  --disabled-grey: #c5c5c5;
+  --spacing-xsmall: 0.7rem;
+  --spacing-small: 1.5rem;
+  --spacing-medium: 3rem;
+  --spacing-large: 5rem;
+
+  --form-row-gap: 0.3rem;
+  --form-column-gap: 1rem;
+
+  --font-xsm: 1.5rem;
+  --font-sm: 1.7rem;
+  --font-light: 300;
+  --font-regular: 350;
+  --font-semibold: 400;
+}
+
+html {
+  /* times all rem pixels and we get the actual font size so it's easy to calculate */
+  /* declare root font-size at html */
+  /* don't use px here so that if user changes font size for browser those settings are kept so use percentages */
+  /* 10/16 is 0.625 */
+  font-size: 62.5%;
+}
+
+
+
+body {
+  font-family: "Stratos", sans-serif;
+  font-weight: 300;
+  font-size: 1.7rem;
+  background-color: #F6F6F6 ;
+}
+
+h1 {
+  font-weight: 450;
+  font-size: 3.6rem;
+  line-height: 5rem;
+  color: var(--darkblue);
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+h2 {
+  font-weight: 450;
+  font-size: 3.2rem;
+  line-height: 160%; /* or 51px */
+  color: var(--darkblue);
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 2.2rem;
+  line-height: 160%; /* or 27px */
+  color: var(--darkblue);
+}
+
+li {
+  list-style-type: none;
+}
+
+p {
+  line-height: 2.5rem;
+  font-weight: 300;
+}
+
+.container {
+  margin: 0 auto; /* centers things inside it */
+  width: 100%;
+}
+
+.container-narrow {
+  max-width: 114rem;
+  margin-bottom: 8rem;
+  margin: 0 auto;
+}
+
+/* Text */
+.text-grey {
+  color: var(--border-darkgrey);
+}
+.text-light {
+  font-weight: 300;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/* annotations */
+.annotations {
+  margin-top: 10rem;
+  font-size: 1.5rem;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.annotations a {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.hide{
+  display: none;
+}
+
+/* remove all padding and margins on table */
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+
+}
+table tr,
+table td {
+  padding: 5px;
+  margin: 0;
+}
+
+table thead{
+  font-weight: 600;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #e0f1ff;
+}
+
+table td.register{
+  max-width: 120px;
+  white-space:wrap;
+}
+table td.className{
+  /* min-width: max-content; */
+  white-space:wrap;
+  padding-right:1rem;
+}
+table td.type{
+  min-width: 50px;
+  max-width: 80px;
+}
+table td.dates{
+  min-width: max-content;
+  white-space:nowrap;
+  padding-right:1rem;
+}
+table td.time{
+  min-width: max-content;
+  white-space:wrap;
+  padding-right:1rem;
+}
+table td.tuition{
+  min-width: max-content;
+  padding-right: 1rem;
+}
+table td.notes{
+  min-width: 200px;
+  max-width:500px;
+}
+
+/* utilities */
+.margin-right-large {
+  margin-right: var(--spacing-large);
+}
+
+.margin-bottom-label {
+  margin-bottom: 0.8rem;
+}
+
+.margin-bottom-small {
+  margin-bottom: var(--spacing-small);
+}
+
+.margin-bottom-medium {
+  margin-bottom: var(--spacing-medium);
+}
+
+.margin-top-xsmall {
+  margin-top: var(--spacing-xsmall);
+}
+.margin-top-medium {
+  margin-top: var(--spacing-medium);
+}
+.margin-top-small {
+  margin-top: var(--spacing-small);
+}
+
+.margin-top-large {
+  margin-top: var(--spacing-large);
+}
+
+.margin-bottom-xsmall {
+  margin-bottom: var(--spacing-xsmall);
+}
+.margin-bottom-large {
+  margin-bottom: var(--spacing-large);
+}
+
+.padding-left-input-info {
+  padding-left: 0.7rem;
+}
+
+.margin-right-xsmall {
+  margin-right: var(--spacing-xsmall);
+}
+.margin-left-xsmall {
+  margin-left: var(--spacing-xsmall);
+}
+.margin-left-small {
+  margin-left: var(--spacing-small);
+}
+.margin-right-small {
+  margin-right: var(--spacing-small);
+}
+
+.padding-around-xsmall {
+  padding: 1rem;
+}
+
+.padding-around-small {
+  padding: var(--spacing-small);
+}
+
+.padding-around-medium {
+  padding: var(--spacing-medium);
+}
+
+.padding-around-large {
+  padding: var(--spacing-large);
+}
+
+.padding-top-medium {
+  padding-top: var(--spacing-medium);
+}
+
+.padpding-bottom-xsmall {
+  padding-bottom: var(--spacing-xsmall);
+}
+
+.padding-right-medium {
+  padding-right: var(--spacing-medium);
+}
+
+.padding-left-medium {
+  padding-left: var(--spacing-medium);
+}
+.padding-right-large {
+  padding-right: var(--spacing-large);
+}
+
+.padding-left-large {
+  padding-left: var(--spacing-large);
+}
+
+.border-grey {
+  border: 1px solid var(--border-grey);
+  border-radius: 0.4rem;
+}
+
+/* cursors */
+.cursor {
+  cursor: pointer;
+}
+
+/* colors */
+.pass {
+  color: var(--green-bargraph);
+}
+
+.fail {
+  color: var(--flash-message-failure);
+}
+
+.warning {
+  color: var(--warning-yellow);
+}
+
+/* ul */
+ul.bullet li {
+  list-style: disc;
+  margin-left: 2.5rem;
+  padding-bottom: 0.6rem;
+}
+
+/* not used below */
+.row {
+  max-width: 114rem;
+  margin: 0 auto;
+}
+
+.row .col-1-of-2 {
+  width: calc(100% - 8rem);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.padding-top-large {
+  padding-top: var(--spacing-large);
+}
+
+.padding-bottom-large {
+  padding-bottom: var(--spacing-large);
+}
+
+.padding-top-medium {
+  padding-top: var(--spacing-medium);
+}
+
+.padding-bottom-medium {
+  padding-bottom: var(--spacing-medium);
+}
+
+.padding-top-small {
+  padding-top: var(--spacing-small);
+}
+
+.padding-bottom-small {
+  padding-bottom: var(--spacing-small);
+}
+.padding-right-small {
+  padding-right: var(--spacing-small);
+}
+
+/* typography */
+.bolder {
+  font-weight: 450;
+}
+
+.text-350 {
+  font-weight: 350;
+}
+.text-300 {
+  font-weight: 300;
+}
+
+.text-smaller {
+  font-size: 1.5rem;
+}
+
+/* container margins */
+.container-margin {
+  margin-left: 20%;
+  margin-right: 20%;
+  
+}
+
+.registerInfo{
+  padding:3rem;
+  background-color: #0073CC;
+  color: white;
+  text-align: center;
+  margin-bottom:1rem;
+ 
+}
+.registerInfo a{
+  color: white;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.registerInfo a:visited{
+  color: white;
+}
+
+.nowrap{
+  white-space: nowrap;
+}
+
+/* custom checkbox */
+/* base code from https://codepen.io/quinlo/pen/ReMRXz */
+ul.checkbox-tag li label.checkbox-disabled{
+  color: var(--disabled-grey);
+  border: 1px solid var(--disabled-grey);
+  cursor: unset;
+}
+.checkbox-wrap{
+    font-weight:300;
+    display: flex;
+    flex-wrap:wrap;
+    column-gap:0.5rem;
+}
+
+ul.checkbox-tag{
+    list-style: none;
+}
+
+ul.checkbox-input{
+    display: inline;
+}
+
+ul.checkbox-tag li label{
+    display: inline-block;
+    background-color: white;
+    border: 1px solid var(--border-grey);
+    color: var(--border-grey);
+    border-radius: 5px;
+    margin: 3px 0px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight:300;
+    /* probably for displaying in mobiles */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+
+ul.checkbox-tag li.check input[type="checkbox"]:checked + label {
+    background-color: #0073CC;
+    color:white;
+    border: 1px solid #0073CC;
+    /* transition: all .2s; */
+}
+
+ul.checkbox-tag li input[type="checkbox"] {
+  display: absolute;
+  position: absolute;
+  opacity: 0;
+}
+
+/* end of checkbox css */
+
+
+/* accordion */
+.searchIcon{
+  float:right;
+}
+.advanced .accordion {
+  background-color: #eee !important;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  margin-top:2rem;
+  font-size: 1.7rem;
+  border-radius: 0;
+}
+
+.advanced .accordion:active{
+  font-size: 1.7rem;
+  background-color: #eee;
+  color: black;
+}
+
+.advanced .accordion:focus{
+  font-size: 1.7rem;
+  background-color: #eee;
+  color: black;
+}
+.advanced .accordion:hover{
+  color: black;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .advanced .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+  border:1px solid #eee;
+  padding-bottom: 2rem;
+}
+/* Filter section grid */
+.filter-grid{
+  display: grid;
+  grid-template-areas: 
+  /* "session sessionCheck" */
+  "class classCheck"
+  "type typeCheck"
+ 
+  "time timeCheck"
+  "avail availableCheck";
+  grid-auto-rows: min-content;
+  grid-template-columns: min-content auto;
+  column-gap: 3rem;
+  row-gap:1rem;
+  padding-top:2rem;
+}
+.filter-grid .session{
+  grid-area: session;
+}
+.filter-grid .sessionCheck{
+  grid-area: sessionCheck;
+}
+
+.filter-grid .type{
+  grid-area: type;
+  white-space:nowrap;
+}
+.filter-grid .typeCheck{
+  grid-area: typeCheck;
+}
+.filter-grid .class{
+  grid-area: class;
+}
+/* .filter-grid .advanced{
+  grid-area: advanced;
+ 
+} */
+/* .filter-grid .advanced .advanced-filter-grid{
+  display: grid;
+  grid-template-areas: 
+  "class classCheck"
+  "level levelCheck"
+  "week weekCheck"
+  "avail availableCheck";
+ 
+  grid-auto-rows: min-content;
+  grid-template-columns: max-content auto;
+  column-gap: 3rem;
+  row-gap:1rem;
+  padding-top:2rem;
+} */
+.filter-grid .classCheck{
+  grid-area: classCheck;
+}
+
+.filter-grid .time{
+  grid-area: time;
+}
+.filter-grid .timeCheck{
+  grid-area: timeCheck;
+}
+
+.filter-grid .available{
+  grid-area: avail;
+}
+.filter-grid .availableCheck{
+  grid-area: availableCheck;
+}
+
+.filter-grid .week{
+  grid-area: week;
+}
+.filter-grid .weekCheck{
+  grid-area: weekCheck;
+}
+
+.flex{
+  display: flex;
+}
+.flex-col{
+  flex-direction: column;
+}
+.flex-grow{
+  flex-grow:1;
+}
+.flex-nogrow{
+  flex-grow:0;
+}
+.flex-noshrink{
+  flex-shrink: 0;
+}
+.vert-mid{
+  align-items: center;
+}
+
+.tab{
+  margin-left:10px;
+}
+.tab2{
+  margin-left:20px;
+}
+
+.filter-area{
+  background-color: white;
+  border:2px solid black;
+  padding-left:5rem;
+  padding-right: 5rem;
+  padding-top:2rem;
+  padding-bottom: 2rem;
+}
+
+.border-bottom{
+  border-bottom: 1px solid black;
+}
+
+.button:active,
+.button:focus,
+.button {
+  margin-top: 2rem;
+  background-color: #EE7F2D;
+  color: white;
+  border-radius: 5px;
+  border-style: none;
+  padding: 12px 24px;
+  font-size: 15px;
+  text-align: center;
+  transition: all .3s;
+}
+.button:hover{
+  background-color:#EE7F2Da4;
+}
+
+#results{
+  margin:5rem;
+  
+}
+
+
+
+@media screen and (max-width: 1100px) {
+  .container-margin {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+  #results{
+    margin-left:3rem;
+    margin-right:3rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container-margin {
+    margin-left: 8%;
+    margin-right: 8%;
+
+  }
+  #results{
+    margin-left:2rem;
+    margin-right:2rem;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .container-margin {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+  #results{
+    margin-left:1rem;
+    margin-right:1rem;
+  }
+  .filter-grid{
+   
+    grid-template-areas: 
+    "class" 
+    "classCheck"
+    "type" 
+    "typeCheck"
+    "time" 
+    "timeCheck"
+    "avail" 
+    "availableCheck"; 
+    
+    grid-template-columns: auto;
+    row-gap: 1rem;
+  }
+  /* .filter-grid .advanced .advanced-filter-grid{
+    
+    grid-template-areas: 
+   
+    
+    "week" 
+    "weekCheck"
+    ;
+  
+    grid-template-columns: auto;
+ 
+    row-gap:1rem;
+    padding-top:2rem;
+  } */
+}
