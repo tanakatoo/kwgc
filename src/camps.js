@@ -33,7 +33,7 @@ document.querySelectorAll('[data-type="type"]').forEach(c => {
         let criteriaType = new Set()
         let criteriaCurrentClass = new Set()
         let criteriaClass = new Set()
-        let criteriaTime = new Set()
+        let criteriaCurrentTime = new Set()
 
         //find out what criteria from age is checked, and saved the ones that are checked before from class and level
         const criteria = document.querySelectorAll(':checked')
@@ -43,24 +43,14 @@ document.querySelectorAll('[data-type="type"]').forEach(c => {
                 criteriaType.add(c.value)
             } else if (c.dataset.type == "class") {
                 criteriaCurrentClass.add(c.value)
+
+            } else if (c.dataset.type == "time") {
+
+                criteriaCurrentTime.add(c.value)
             }
-            // } else if (c.dataset.type == "time") {
-            //     criteriaCurrentTime.add(c.value)
-            // }
         })
+        console.log('time criteria is', criteriaCurrentTime)
 
-        //uncheck all class checkboxes 
-        // document.querySelectorAll('[data-type="class"]').forEach(c => {
-        //     c.disabled = true;
-        // })
-        // document.querySelectorAll('[data-type="class"]').forEach(c => {
-
-        //     let next = c.nextElementSibling;
-        //     next.classList.add('checkbox-disabled');
-        // })
-        // document.querySelectorAll('[data-type="class"]').forEach(c => {
-        //     c.checked = false;
-        // })
         //uncheck all time checkboxes
         document.querySelectorAll('[data-type="time"]').forEach(c => {
             c.disabled = true;
@@ -100,10 +90,16 @@ document.querySelectorAll('[data-type="type"]').forEach(c => {
                     document.querySelectorAll('[data-type="time"]').forEach(c => {
                         c.checked = false;
                     })
-                    //are any of them checked from before?
-                    // if (criteriaCurrentTime.has(c.time) && document.querySelector("#type0").checked) {
-                    //     document.querySelector(`[data-type="time"][value="${c.time}"]`).checked = true;
-                    // }
+
+                }
+                //are any of them checked from before?
+                console.log('has time?', c.time, 'has type?', c.type)
+                if (criteriaCurrentTime.has(c.time) && c.type == "Extended Care") {
+
+                    console.log(c.time)
+                    document.querySelector(`[data-type="time"][value="${c.time}"]`).checked = true;
+                    // document.querySelector(`[data-type="time"][value="Morning"]`).checked = true;
+                    console.log('checking time', document.querySelector(`[data-type="time"][value="${c.time}"]`).checked)
                 }
             }
         })
@@ -137,22 +133,23 @@ document.querySelectorAll('[data-type="class"]').forEach(c => {
         let criteriaClass = new Set()
         let criteriaCurrentType = new Set()
         let criteriaType = new Set()
+        let criteriaCurrentTime = new Set()
         //find out what criteria from class is checked, and saved the ones that are checked before from class and type
         const criteria = document.querySelectorAll(':checked')
 
         //reset all classes and redo
-        // document.querySelectorAll('[data-type="class"]').forEach(l => {
-        //     console.log('resetting class')
-        //     l.disabled = true;
-        // })
-        // document.querySelectorAll('[data-type="class"]').forEach(l => {
-        //     console.log('making checkbox enalbed')
-        //     let next = l.nextElementSibling;
-        //     next.classList.add('checkbox-disabled');
-        // })
-        // document.querySelectorAll('[data-type="class"]').forEach(c => {
-        //     c.checked = false;
-        // })
+        document.querySelectorAll('[data-type="time"]').forEach(l => {
+            console.log('resetting time')
+            l.disabled = true;
+        })
+        document.querySelectorAll('[data-type="time"]').forEach(l => {
+            console.log('making checkbox enalbed')
+            let next = l.nextElementSibling;
+            next.classList.add('checkbox-disabled');
+        })
+        document.querySelectorAll('[data-type="time"]').forEach(c => {
+            c.checked = false;
+        })
 
         Array.from(criteria).forEach(c => {
 
@@ -165,6 +162,9 @@ document.querySelectorAll('[data-type="class"]').forEach(c => {
                 // document.querySelector(`#${c.id}`).checked = false;
             } else if (c.dataset.type == "type") {
                 criteriaCurrentType.add(c.value)
+            }
+            else if (c.dataset.type == "time") {
+                criteriaCurrentTime.add(c.value)
             }
 
         })
@@ -195,6 +195,21 @@ document.querySelectorAll('[data-type="class"]').forEach(c => {
                     document.querySelector(`[data-type="type"][value="${c.type}"]`).checked = true;
                     //if it is "Extended Care", enable time
 
+                    if (criteriaCurrentType.has("Extended Care")) {
+                        //enable time
+                        document.querySelectorAll('[data-type="time"]').forEach(l => {
+
+                            l.disabled = false;
+                        })
+                        document.querySelectorAll('[data-type="time"]').forEach(l => {
+
+                            let next = l.nextElementSibling;
+                            next.classList.remove('checkbox-disabled');
+                        })
+                        if (criteriaCurrentTime.has(c.time)) {
+                            document.querySelector(`[data-type="time"][value="${c.time}"]`).checked = true;
+                        }
+                    }
                 }
                 //only add if there is a type not empty
                 if (c.type != "") {
@@ -242,9 +257,9 @@ document.querySelector("#search").addEventListener("click", (e) => {
         } else if (c.dataset.type == "available") {
             availability = true
         }
-        else if (c.dataset.type == "week") {
-            criteriaWeek.add(c.value)
-        }
+        // else if (c.dataset.type == "week") {
+        //     criteriaWeek.add(c.value)
+        // }
     })
     // console.log(criteriaSession)
     console.log(criteriaType)
@@ -265,13 +280,13 @@ document.querySelector("#search").addEventListener("click", (e) => {
         // if (criteriaSession.size > 0 && !criteriaSession.has(gymClass.session)) {
         //     add = false;
         // }
-        if (criteriaType.size > 0 && !criteriaType.has(gymClass.type)) {
+        if (criteriaType.size > 0 && !criteriaType.has(gymClass.type) && gymClass.className != 'Adaptive Gymnastics') {
             add = false;
         }
         if (criteriaClass.size > 0 && !criteriaClass.has(gymClass.className)) {
             add = false;
         }
-        if (criteriaTime.size > 0 && !criteriaTime.has(gymClass.time)) {
+        if (criteriaTime.size > 0 && !criteriaTime.has(gymClass.time) && gymClass.className != 'Adaptive Gymnastics') {
             add = false;
         }
         // if (criteriaWeek.size > 0 && !criteriaWeek.has(gymClass.dayOfWeek)) {
