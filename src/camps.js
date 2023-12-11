@@ -87,16 +87,16 @@ document.querySelectorAll('[data-type="type"]').forEach(c => {
                         next.classList.remove('checkbox-disabled');
                     })
 
-                    document.querySelectorAll('[data-type="time"]').forEach(c => {
-                        c.checked = false;
-                    })
+                    // document.querySelectorAll('[data-type="time"]').forEach(c => {
+                    //     c.checked = false;
+                    // })
 
                 }
                 //are any of them checked from before?
-                console.log('has time?', c.time, 'has type?', c.type)
-                if (criteriaCurrentTime.has(c.time) && c.type == "Extended Care") {
 
-                    console.log(c.time)
+                if (criteriaType.has(c.type) && criteriaCurrentTime.has(c.time) && c.type == "Extended Care") {
+
+                    console.log('this is the time', c.time)
                     document.querySelector(`[data-type="time"][value="${c.time}"]`).checked = true;
                     // document.querySelector(`[data-type="time"][value="Morning"]`).checked = true;
                     console.log('checking time', document.querySelector(`[data-type="time"][value="${c.time}"]`).checked)
@@ -213,9 +213,9 @@ document.querySelectorAll('[data-type="class"]').forEach(c => {
                 }
                 //only add if there is a type not empty
                 if (c.type != "") {
-                    criteriaType.add(c.type)
+                    // criteriaType.add(c.type)
 
-                    document.querySelector(`[data-type="type"][value="${c.type}"]`).disabled = false;
+                    document.querySelector(`[data-type="type"][value="${c.type.trim()}"]`).disabled = false;
                     document.querySelector(`[data-type="type"][value="${c.type}"]`).nextElementSibling.classList.remove('checkbox-disabled');
 
                 } else {
