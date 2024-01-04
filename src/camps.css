@@ -74,6 +74,7 @@ p {
   font-weight: 300;
 }
 
+
 .container {
   margin: 0 auto; /* centers things inside it */
   width: 100%;
@@ -376,6 +377,10 @@ ul.bullet li {
 
 .registerInfo a:visited{
   color: white;
+}
+
+.registerInfo a:hover{
+  color: #EE7F2D;
 }
 
 .nowrap{

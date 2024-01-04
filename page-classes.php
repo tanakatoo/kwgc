@@ -167,11 +167,13 @@ if($decoded['rows'] != null){
                 //users can only register if it is after 12 pm on the registration date 
                 date_default_timezone_set('America/New_York');
                 $canRegister=false;
-                if(date('Y-m-d') > $array_classes[$i]['regStartDate'] ||
-                                                (date('Y-m-d') == $array_classes[$i]['regStartDate'] && 
+                if ($decoded['rows'][$i]['reg_start_date'] != ''){
+                if(date('Y-m-d') > $decoded['rows'][$i]['reg_start_date'] ||
+                                                (date('Y-m-d') == $decoded['rows'][$i]['reg_start_date'] && 
                                                 time() >= strtotime("12:00:00"))) {
                                                 $canRegister=true;
                                                 }
+                                            }
 
         //create an array with key value pairs for data to display
         $array_classes[$i]=array(

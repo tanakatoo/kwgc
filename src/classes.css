@@ -378,6 +378,11 @@ ul.bullet li {
   color: white;
 }
 
+
+.registerInfo a:hover{
+  color: #EE7F2D;
+}
+
 .nowrap{
   white-space: nowrap;
 }

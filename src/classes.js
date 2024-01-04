@@ -373,7 +373,7 @@ function createTableBody(session, table, container, classes) {
                     span2.innerText = `${Math.abs(row.opening)} waiting`
                 }
             } else {
-                span.innerText = "Registration not yet open"
+                span.innerText = "Registration not open"
             }
             div.appendChild(span)
             div.appendChild(span2)

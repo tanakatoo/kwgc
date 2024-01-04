@@ -8,7 +8,7 @@ $data = array( 'OrgId' => 526868,'Sort'=>'session, category1, start_date, start_
 $response = wp_remote_post( 'https://app.jackrabbitclass.com/jr3.0/Openings/OpeningsJson', array( 'body' => $data,'' ) );
 $decoded_original=(json_decode( wp_remote_retrieve_body( $response ),true ));
 $json_pretty = json_encode($decoded, JSON_PRETTY_PRINT);
-// var_dump($decoded_original);
+
 //find out all the filtering categories and put them in an array
 $sessionNames=array();
 $type=array();
@@ -38,10 +38,9 @@ if($decoded_original['rows'] != null){
     //print out all where session is empty
     // var_dump($decoded['rows'][148]);
     // print_r($decoded['rows'][145]);
-   
-
+  
     for ($i = 0; $i < count($decoded['rows']); $i++) { 
-
+      
        
             // if($i !=0 && $decoded['rows'][$i]['session']!='' && 
             //     $decoded['rows'][$i]['session'] != $decoded['rows'][$i-1]['session'] &&
@@ -175,11 +174,14 @@ if($decoded_original['rows'] != null){
                 //users can only register if it is after 12 pm on the registration date 
                 date_default_timezone_set('America/New_York');
                 $canRegister=false;
-                if(date('Y-m-d') > $array_classes[$i]['regStartDate'] ||
-                                                (date('Y-m-d') == $array_classes[$i]['regStartDate'] && 
+              
+                if ($decoded['rows'][$i]['reg_start_date'] != ''){
+                if(date('Y-m-d') > $decoded['rows'][$i]['reg_start_date'] ||
+                                                (date('Y-m-d') == $decoded['rows'][$i]['reg_start_date'] && 
                                                 time() >= strtotime("12:00:00"))) {
                                                 $canRegister=true;
                                                 }
+                                            }
 
         //create an array with key value pairs for data to display
         $array_classes[$i]=array(
@@ -237,8 +239,10 @@ if($decoded_original['rows'] != null){
         <h1 class="text-center">Camp Schedules</h1>
         <div class="registerInfo">
             <p>2024 Winter session registration is now open.</p>
-            <p>Winter camp registration will be opening on Dec. 1, 2023.</p>
+            <p>March Break camp registration is open on Jan 10, 2024.</p>
             <p>We strongly recommend <a href="https://app.jackrabbitclass.com/regv2.asp?id=526868" target="_blank">creating an account</a> in advance of registering for activities as spaces fill quickly.</p>
+            <p>Full day campers have the opportunity to purchase healthy lunches through <a href="https://www.fftsl.ca" target="_blank">Food For Thought Student Lunches</a>. Sign up with code 3D4U. Vendors and lunch menus vary - see camp schedules for more details. 
+        </p>
         </div>
         <div class="filter-area">
             <div class="border-bottom">
