@@ -25,6 +25,7 @@ if($decoded_original['rows'] != null){
     for ($i = 0; $i < count($decoded_original['rows']); $i++) { 
         if($decoded_original['rows'][$i]['session'] == "PD Days" 
         || $decoded_original['rows'][$i]['session'] == "2023-24 Camp"
+        || $decoded_original['rows'][$i]['session'] == "2024 Summer Camp"
         || $decoded_original['rows'][$i]['session'] == "Camps"){
            
             //put it in the decoded array
