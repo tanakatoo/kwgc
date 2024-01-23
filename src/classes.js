@@ -5,6 +5,46 @@ let filteredClasses = []
 
 
 
+document.querySelector("#reset").addEventListener('click', e => {
+    document.querySelectorAll('[data-type="class"]').forEach(l => {
+        console.log('resetting time')
+        l.disabled = true;
+    })
+    document.querySelectorAll('[data-type="class"]').forEach(l => {
+        console.log('making checkbox enabled')
+        let next = l.nextElementSibling;
+        next.classList.add('checkbox-disabled');
+    })
+    document.querySelectorAll('[data-type="class"]').forEach(c => {
+        c.checked = false;
+    })
+
+    document.querySelectorAll('[data-type="level"]').forEach(l => {
+        console.log('resetting type')
+        l.disabled = true;
+    })
+    document.querySelectorAll('[data-type="level"]').forEach(l => {
+        console.log('making checkbox enabled')
+        let next = l.nextElementSibling;
+        next.classList.add('checkbox-disabled');
+    })
+    document.querySelectorAll('[data-type="level"]').forEach(c => {
+        c.checked = false;
+    })
+
+    document.querySelectorAll('[data-type="week"]').forEach(c => {
+        c.checked = false;
+    })
+    document.querySelectorAll('[data-type="available"]').forEach(c => {
+        c.checked = false;
+    })
+    document.querySelectorAll('[data-type="age"]').forEach(c => {
+        c.checked = false;
+    })
+    document.querySelectorAll('[data-type="session"]').forEach(c => {
+        c.checked = false;
+    })
+})
 
 
 document.querySelector(".accordion").addEventListener("click", function () {

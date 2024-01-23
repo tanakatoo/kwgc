@@ -361,6 +361,22 @@ ul.bullet li {
   
 }
 
+.reset-filter{
+  cursor: pointer;
+  margin-top:1.5rem;
+}
+#reset{
+  text-decoration: underline;
+  
+}
+#reset:hover{
+  font-weight: 500;
+  color: #EE7F2D;
+}
+#reset:visited{
+  color: black;
+}
+
 .registerInfo{
   padding:3rem;
   background-color: #0073CC;

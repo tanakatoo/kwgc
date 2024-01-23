@@ -124,6 +124,40 @@ document.querySelectorAll('[data-type="type"]').forEach(c => {
 //     // })
 // })
 
+document.querySelector("#reset").addEventListener('click', e => {
+    document.querySelectorAll('[data-type="time"]').forEach(l => {
+        console.log('resetting time')
+        l.disabled = true;
+    })
+    document.querySelectorAll('[data-type="time"]').forEach(l => {
+        console.log('making checkbox enabled')
+        let next = l.nextElementSibling;
+        next.classList.add('checkbox-disabled');
+    })
+    document.querySelectorAll('[data-type="time"]').forEach(c => {
+        c.checked = false;
+    })
+
+    document.querySelectorAll('[data-type="type"]').forEach(l => {
+        console.log('resetting type')
+        l.disabled = true;
+    })
+    document.querySelectorAll('[data-type="type"]').forEach(l => {
+        console.log('making checkbox enabled')
+        let next = l.nextElementSibling;
+        next.classList.add('checkbox-disabled');
+    })
+    document.querySelectorAll('[data-type="type"]').forEach(c => {
+        c.checked = false;
+    })
+
+    document.querySelectorAll('[data-type="class"]').forEach(c => {
+        c.checked = false;
+    })
+    document.querySelectorAll('[data-type="available"]').forEach(c => {
+        c.checked = false;
+    })
+})
 
 //put an event listener on all class checkboxes
 document.querySelectorAll('[data-type="class"]').forEach(c => {
@@ -372,7 +406,7 @@ function createTableHead(table, container) {
     td3.appendChild(document.createTextNode("Type"))
     const td4 = document.createElement("td");
     td4.className = "dates"
-    td4.appendChild(document.createTextNode("Day"))
+    td4.appendChild(document.createTextNode("Day(s)"))
     const td5 = document.createElement("td");
     td5.className = "time"
     td5.appendChild(document.createTextNode("Time"))
@@ -505,20 +539,33 @@ function createTableBody(c, table, container, classes) {
             div3.classList.add("flex-col");
 
             const span5 = document.createElement("span");
-            span5.innerText = row.dayOfWeek;
+            if (row.endDate == row.startDate) {
+                span5.innerText = row.dayOfWeek;
+            }
+
 
             // const span6 = document.createElement("span");
             // span6.classList.add("tab");
             // span6.innerText = `${row.startDate} to`;
 
             const span7 = document.createElement("span");
-            span7.classList.add("tab");
-            span7.innerText = row.endDate;
+            const span8 = document.createElement('span');
+            if (row.endDate == row.startDate) {
+                span7.classList.add("tab");
+                span7.innerText = row.endDate;
+            } else {
+                span7.innerText = `${row.startDate} to`;
+
+                span8.classList.add("tab");
+                span8.innerText = row.endDate
+            }
+
+
 
             div3.appendChild(span5);
             // div3.appendChild(span6);
             div3.appendChild(span7);
-
+            div3.appendChild(span8);
             td4.appendChild(div3);
             tr.appendChild(td4);
 

@@ -25,6 +25,7 @@ if($decoded_original['rows'] != null){
     for ($i = 0; $i < count($decoded_original['rows']); $i++) { 
         if($decoded_original['rows'][$i]['session'] == "PD Days" 
         || $decoded_original['rows'][$i]['session'] == "2023-24 Camp"
+        || $decoded_original['rows'][$i]['session'] == "2024-25 Camp"
         || $decoded_original['rows'][$i]['session'] == "2024 Summer Camp"
         || $decoded_original['rows'][$i]['session'] == "Camps"){
            
@@ -242,7 +243,9 @@ if($decoded_original['rows'] != null){
             <p>2024 Winter session registration is now open.</p>
             <p>March Break camp registration is open on Jan 10, 2024.</p>
             <p>We strongly recommend <a href="https://app.jackrabbitclass.com/regv2.asp?id=526868" target="_blank">creating an account</a> in advance of registering for activities as spaces fill quickly.</p>
-            <p>Full day campers have the opportunity to purchase healthy lunches through <a href="https://www.fftsl.ca" target="_blank">Food For Thought Student Lunches</a>. Sign up with code 3D4U. Vendors and lunch menus vary - see camp schedules for more details. 
+            <p>Full day campers may have the opportunity to purchase healthy lunches through 
+                <a href="https://www.fftsl.ca" target="_blank">Food For Thought Student Lunches</a>. 
+                Sign up with code 3D4U. Details about the lunches, if available, will be sent via email to those registered for the camp.
         </p>
         </div>
         <div class="filter-area">
@@ -389,7 +392,11 @@ if($decoded_original['rows'] != null){
             
         </div>
         <button id="search" class="button">Filter Camps</button>
+        <div class='reset-filter'>
+            <a id="reset">Reset Filter</a>
         </div>
+        </div>
+
     </div>
         <div id="results">
 
