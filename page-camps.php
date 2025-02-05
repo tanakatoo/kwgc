@@ -7,8 +7,7 @@ get_header();
 $data = array( 'OrgId' => 526868,'Sort'=>'session, category1, start_date, start_time'); //sort by session then by name(cat1) because we want to group the names together
 $response = wp_remote_post( 'https://app.jackrabbitclass.com/jr3.0/Openings/OpeningsJson', array( 'body' => $data,'' ) );
 $decoded_original=(json_decode( wp_remote_retrieve_body( $response ),true ));
-$json_pretty = json_encode($decoded, JSON_PRETTY_PRINT);
-
+$json_pretty = json_encode($decoded_original, JSON_PRETTY_PRINT);
 //find out all the filtering categories and put them in an array
 $sessionNames=array();
 $type=array();
@@ -24,9 +23,11 @@ if($decoded_original['rows'] != null){
     $j=0;
     for ($i = 0; $i < count($decoded_original['rows']); $i++) { 
         if($decoded_original['rows'][$i]['session'] == "PD Days" 
-        || $decoded_original['rows'][$i]['session'] == "2023-24 Camp"
+        || $decoded_original['rows'][$i]['session'] == "2025-26 Camp"
         || $decoded_original['rows'][$i]['session'] == "2024-25 Camp"
         || $decoded_original['rows'][$i]['session'] == "2024 Summer Camp"
+        || $decoded_original['rows'][$i]['session'] == "2025 Adapted March Break Camp"
+        || $decoded_original['rows'][$i]['session'] == "2025 March Break Camp"
         || $decoded_original['rows'][$i]['session'] == "Camps"){
            
             //put it in the decoded array
@@ -235,13 +236,14 @@ if($decoded_original['rows'] != null){
             const originalClasses = <?php echo json_encode($array_classes); ?>;
             const sessionNames=<?php echo json_encode($sessionNames); ?>;
             const classNames=<?php echo json_encode($classNames); ?>;
+            console.log('sessionnames are', sessionNames);
+            console.log('classNames are', classNames);
+            console.log(originalClasses);
     </script>
 
     <div class="container-margin">
         <h1 class="text-center">Camp Schedules</h1>
         <div class="registerInfo">
-            <p>2024 Winter session registration is now open.</p>
-            <p>March Break camp registration is open on Jan 10, 2024.</p>
             <p>We strongly recommend <a href="https://app.jackrabbitclass.com/regv2.asp?id=526868" target="_blank">creating an account</a> in advance of registering for activities as spaces fill quickly.</p>
             <p>Full day campers may have the opportunity to purchase healthy lunches through 
                 <a href="https://www.fftsl.ca" target="_blank">Food For Thought Student Lunches</a>. 
@@ -250,7 +252,7 @@ if($decoded_original['rows'] != null){
         </div>
         <div class="filter-area">
             <div class="border-bottom">
-                <h3 class="">Camp filter</h3>
+                <h2 class="">Camp filter</h3>
             </div>
         <div class="filter-grid">
             <!-- <div class="session flex margin-top-xsmall">
@@ -391,7 +393,14 @@ if($decoded_original['rows'] != null){
             </div> -->
             
         </div>
-        <button id="search" class="button">Filter Camps</button>
+        <div class="elementor-button-wrapper" style="margin-top: 15px; ">
+            <a class=' elementor-button elementor-button-link elementor-size-md elementor-animation-sink' id='search' style="cursor: pointer;">
+                <span class="elementor-button-content-wrapper elementor-button-content-wrapper">
+                    <span class="elementor-button-text" style="color: white; font-weight: bold; font-size: 18px">Filter Classes</span>
+                </span>
+            </a>
+        </div>
+        <!-- <button id="search" class="button">Filter Camps</button> -->
         <div class='reset-filter'>
             <a id="reset">Reset Filter</a>
         </div>

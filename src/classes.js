@@ -1,7 +1,8 @@
 
-console.log('got classes!', originalClasses)
-console.log('got sessionNames!', sessionNames)
-let filteredClasses = []
+console.log('got classes new!', originalClasses);
+console.log('got sessionNames!', sessionNames);
+console.log('display?');
+let filteredClasses = [];
 
 
 
@@ -290,7 +291,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
 makeTableDesktop(originalClasses, new Set());
 
 function makeTableDesktop(classes, criteriaSession) {
-    console.log(criteriaSession, criteriaSession.size);
+    console.log('criteriasession and criteriasession size', criteriaSession, criteriaSession.size);
     //remove original table first
     document.querySelector("#results").innerHTML = ""
 
@@ -396,11 +397,14 @@ function createTableBody(session, table, container, classes) {
             if (row.canRegister) {
                 const a = document.createElement("a");
 
-                a.href = row.link
-                a.target = "_blank"
+                a.href = row.link;
+                a.target = "_blank";
+                a.ariaLabel = "Register for class"
+                a.classList.add('blackLink')
 
                 if (row.opening > 0) {
                     a.innerText = "Register"
+                    a.classList.add("blackLink");
                 } else {
                     span.innerText = "Waitlist"
                 }

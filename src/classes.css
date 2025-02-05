@@ -361,16 +361,17 @@ ul.bullet li {
 }
 
 .reset-filter{
-  cursor: pointer;
+
   margin-top:1.5rem;
 }
 #reset{
   text-decoration: underline;
+  cursor: pointer;
   
 }
 #reset:hover{
   font-weight: 500;
-  color: #EE7F2D;
+  color: grey;
 }
 #reset:visited{
   color: black;
