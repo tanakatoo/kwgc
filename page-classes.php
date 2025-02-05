@@ -8,7 +8,7 @@ $data = array( 'OrgId' => 526868,'Sort'=>'session, category1, category2, categor
 $response = wp_remote_post( 'https://app.jackrabbitclass.com/jr3.0/Openings/OpeningsJson', array( 'body' => $data,'' ) );
 $decoded=(json_decode( wp_remote_retrieve_body( $response ),true ));
 $json_pretty = json_encode($decoded, JSON_PRETTY_PRINT);
-print($json_pretty);
+// print($json_pretty);
 //find out all the filtering categories and put them in an array
 $sessionNames=array();
 $ageGroups=array();
