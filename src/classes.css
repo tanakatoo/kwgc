@@ -517,6 +517,7 @@ ul.checkbox-tag li input[type="checkbox"] {
   grid-template-areas: 
   "session sessionCheck"
   "age ageCheck"
+  "location locationCheck"
   "advanced advanced";
   grid-auto-rows: min-content;
   grid-template-columns: min-content auto;
@@ -529,6 +530,12 @@ ul.checkbox-tag li input[type="checkbox"] {
 }
 .filter-grid .sessionCheck{
   grid-area: sessionCheck;
+}
+.filter-grid .location{
+  grid-area: location;
+}
+.filter-grid .locationCheck{
+  grid-area: locationCheck;
 }
 
 .filter-grid .age{
@@ -687,6 +694,7 @@ ul.checkbox-tag li input[type="checkbox"] {
     "sessionCheck"
     "age" 
     "ageCheck"
+    "location"
     "advanced"; 
     
     grid-template-columns: auto;
