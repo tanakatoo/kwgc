@@ -695,6 +695,7 @@ ul.checkbox-tag li input[type="checkbox"] {
     "age" 
     "ageCheck"
     "location"
+    "locationCheck"
     "advanced"; 
     
     grid-template-columns: auto;

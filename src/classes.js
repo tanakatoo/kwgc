@@ -231,6 +231,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
     let criteriaWeek = new Set()
     const criteria = document.querySelectorAll(':checked')
     //find out what kind of criteria it is
+    console.log('criteria is ', criteria)
     Array.from(criteria).forEach(c => {
         if (c.dataset.type == "session") {
             criteriaSession.add(c.value)
@@ -251,7 +252,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
     })
     console.log(criteriaSession)
     console.log(criteriaAge)
-    console.log(criteriaLocation)
+    console.log('got location', criteriaLocation)
     console.log(criteriaClass)
     console.log(criteriaLevel)
     console.log(availability)
