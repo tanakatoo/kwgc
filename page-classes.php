@@ -11,6 +11,7 @@ $json_pretty = json_encode($decoded, JSON_PRETTY_PRINT);
 // print($json_pretty);
 //find out all the filtering categories and put them in an array
 $sessionNames=array();
+$locations=array();
 $ageGroups=array();
 $classNames=array();
 $levels=array();
@@ -64,6 +65,24 @@ if($decoded['rows'] != null){
                     
                     $sessionNames[]=$decoded['rows'][$i]['session'];
                    
+                }
+
+            }
+
+             //this is for location
+             if($i !=0 && $decoded['rows'][$i]['room']!='' && 
+             $decoded['rows'][$i]['room'] != $decoded['rows'][$i-1]['room'] &&
+             in_array($decoded['rows'][$i]['room'],$locations) == false){
+             
+                     $locations[]=$decoded['rows'][$i]['room'];
+                 
+             
+            }else{
+                //this is the first one so add it
+                if($i==0 && $decoded['rows'][$i]['room']!='' ){
+                    
+                    $locations[]=$decoded['rows'][$i]['room'];
+                    
                 }
 
             }
@@ -199,6 +218,7 @@ if($decoded['rows'] != null){
             "age"=>$decoded['rows'][$i]['category2'],
             "className"=>$decoded['rows'][$i]['category1'],
             "level"=>$decoded['rows'][$i]['category3'],
+            "location"=>$decoded['rows'][$i]['room'],
             // "startTime"=>$decoded['rows'][$i]['start_time'],
             "startTime" => date("g:i", strtotime($decoded['rows'][$i]['start_time'])),
             // "endTime"=>$decoded['rows'][$i]['end_time'],
@@ -233,6 +253,7 @@ if($decoded['rows'] != null){
     usort($classNames, 'strnatcasecmp');
     usort($ageGroups, 'strnatcasecmp');
     usort($sessionNames, 'strnatcasecmp');
+    usort($locations, 'strnatcasecmp');
     
     //levels cannot be alphabetical, must be in "Beginner, Intermediate, Advanced"
     $sortedLevel=[];
@@ -259,8 +280,8 @@ if($decoded['rows'] != null){
     <div class="container-margin">
         <h1 class="text-center">Class Schedules</h1>
         <div class="registerInfo">
-            <p>Pre-registration for those currently in the Fall session: November 11 at noon to November 12th at 4pm</p>
-            <p>General registration opens November 13th at noon</p>
+            <p>Pre-registration for those currently in the Winter session: February 24th at noon to February 25th at 4pm</p>
+            <p>General registration opens February 26th at noon</p>
             <p>We strongly recommend <a href="https://app.jackrabbitclass.com/regv2.asp?id=526868" target="_blank">creating an account</a> in advance of registering for activities as spaces fill quickly.</p>
         </div>
         <div class="filter-area">
@@ -293,6 +314,21 @@ if($decoded['rows'] != null){
                             <li class="check">
                                 <input class="checkbox-input" data-type="age" id="age<?php echo $i?>" type="checkbox" value="<?php echo $ageGroups[$i]?>">
                                 <label class="checkbox-text" for="age<?php echo $i?>"><?php echo $ageGroups[$i]?></label>
+                            </li>
+                        </ul>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="location flex margin-top-xsmall">
+               Location
+            </div>
+            <div class="locationCheck">
+                <div class="checkbox-wrap">
+                    <?php for ($i = 0; $i < count($locations); $i++){ ?>
+                        <ul class="checkbox-tag">
+                            <li class="check">
+                                <input class="checkbox-input" data-type="location" id="location<?php echo $i?>" type="checkbox" value="<?php echo $locations[$i]?>">
+                                <label class="checkbox-text" for="location<?php echo $i?>"><?php echo $locations[$i]?></label>
                             </li>
                         </ul>
                     <?php }?>
