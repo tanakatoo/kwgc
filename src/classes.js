@@ -1,7 +1,8 @@
 
-console.log('got classes!', originalClasses)
-console.log('got sessionNames!', sessionNames)
-let filteredClasses = []
+console.log('got classes new!', originalClasses);
+console.log('got sessionNames!', sessionNames);
+console.log('display?');
+let filteredClasses = [];
 
 
 
@@ -39,6 +40,9 @@ document.querySelector("#reset").addEventListener('click', e => {
         c.checked = false;
     })
     document.querySelectorAll('[data-type="age"]').forEach(c => {
+        c.checked = false;
+    })
+    document.querySelectorAll('[data-type="location"]').forEach(c => {
         c.checked = false;
     })
     document.querySelectorAll('[data-type="session"]').forEach(c => {
@@ -220,17 +224,21 @@ document.querySelector("#search").addEventListener("click", (e) => {
     //find out what the criteria is
     let criteriaSession = new Set()
     let criteriaAge = new Set()
+    let criteriaLocation = new Set()
     let criteriaClass = new Set()
     let criteriaLevel = new Set()
     let availability = false
     let criteriaWeek = new Set()
     const criteria = document.querySelectorAll(':checked')
     //find out what kind of criteria it is
+    console.log('criteria is ', criteria)
     Array.from(criteria).forEach(c => {
         if (c.dataset.type == "session") {
             criteriaSession.add(c.value)
         } else if (c.dataset.type == "age") {
             criteriaAge.add(c.value)
+        } else if (c.dataset.type == "location") {
+            criteriaLocation.add(c.value)
         } else if (c.dataset.type == "class") {
             criteriaClass.add(c.value)
         } else if (c.dataset.type == "level") {
@@ -244,6 +252,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
     })
     console.log(criteriaSession)
     console.log(criteriaAge)
+    console.log('got location', criteriaLocation)
     console.log(criteriaClass)
     console.log(criteriaLevel)
     console.log(availability)
@@ -262,6 +271,9 @@ document.querySelector("#search").addEventListener("click", (e) => {
             add = false;
         }
         if (criteriaAge.size > 0 && !criteriaAge.has(gymClass.age)) {
+            add = false;
+        }
+        if (criteriaLocation.size > 0 && !criteriaLocation.has(gymClass.location)) {
             add = false;
         }
         if (criteriaClass.size > 0 && !criteriaClass.has(gymClass.className)) {
@@ -290,7 +302,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
 makeTableDesktop(originalClasses, new Set());
 
 function makeTableDesktop(classes, criteriaSession) {
-    console.log(criteriaSession, criteriaSession.size);
+    console.log('criteriasession and criteriasession size', criteriaSession, criteriaSession.size);
     //remove original table first
     document.querySelector("#results").innerHTML = ""
 
@@ -396,11 +408,14 @@ function createTableBody(session, table, container, classes) {
             if (row.canRegister) {
                 const a = document.createElement("a");
 
-                a.href = row.link
-                a.target = "_blank"
+                a.href = row.link;
+                a.target = "_blank";
+                a.ariaLabel = "Register for class"
+                a.classList.add('blackLink')
 
                 if (row.opening > 0) {
                     a.innerText = "Register"
+                    a.classList.add("blackLink");
                 } else {
                     span.innerText = "Waitlist"
                 }
@@ -435,9 +450,13 @@ function createTableBody(session, table, container, classes) {
             span4.classList.add("tab");
             span4.innerText = row.level;
 
+            const spanLocation = document.createElement("span");
+            spanLocation.classList.add("tab");
+            spanLocation.innerText = row.location;
+
             div2.appendChild(span3);
             div2.appendChild(span4);
-
+            div2.appendChild(spanLocation);
             td2.appendChild(div2);
             tr.appendChild(td2)
 

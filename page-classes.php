@@ -8,36 +8,49 @@ $data = array( 'OrgId' => 526868,'Sort'=>'session, category1, category2, categor
 $response = wp_remote_post( 'https://app.jackrabbitclass.com/jr3.0/Openings/OpeningsJson', array( 'body' => $data,'' ) );
 $decoded=(json_decode( wp_remote_retrieve_body( $response ),true ));
 $json_pretty = json_encode($decoded, JSON_PRETTY_PRINT);
-
+// print($json_pretty);
 //find out all the filtering categories and put them in an array
 $sessionNames=array();
+$locations=array();
 $ageGroups=array();
 $classNames=array();
 $levels=array();
 $array_classes=array();
+// $unsetted = array();
 
 //need to check that there are rows before looping, if not then display error
 if($decoded['rows'] != null){
 
     //remove all rows from the array where category1 is "PD Days" or "Camps"
-
-    for ($i = 0; $i < count($decoded['rows']); $i++) { 
-        if($decoded['rows'][$i]['session'] == "PD Days" 
-        || $decoded['rows'][$i]['session'] == "2023-24 Camp"
-        || $decoded['rows'][$i]['session'] == "2024-25 Camp"
-        || $decoded['rows'][$i]['session'] == "2024 Summer Camp"
-        || $decoded['rows'][$i]['session'] == "Camps"){
-           
-            unset($decoded['rows'][$i]);
-        }
-    }
+    $decoded['rows'] = array_filter($decoded['rows'], function($row){
+        return !in_array($row['session'], ['PD Days', 
+        "2025 Adapted March Break Camp", 
+        "2025 March Break Camp","2023-24 Camp",  
+        "2025-26 Camp", "2024-25 Camp", "2024 Summer Camp", "Camps" ]);
+    });
+    $decoded['rows'] = array_values($decoded['rows']); //to reindex, when we "unset" like below, the index number doesn't get reindexed
+    // for ($i = 0; $i < count($decoded['rows']); $i++) { 
+    //     if(
+    //          $decoded['rows'][$i]['session'] == "PD Days" 
+    //     ||  $decoded['rows'][$i]['session'] == "2023-24 Camp"
+    //      || $decoded['rows'][$i]['session'] == "2024-25 Camp"
+    //     || $decoded['rows'][$i]['session'] == "2024 Summer Camp"
+    //     || $decoded['rows'][$i]['session'] == "Camps"
+    //     ){
+    //         // print_r('unsetting ' . $decoded['rows'][$i]['session']);
+    //         // print(' classname ' . $decoded['rows'][$i]['category1']);
+    //         // $unsetted[] = $decoded['rows'][$i];
+    //         unset($decoded['rows'][$i]);
+    //     }
+    // }
+    // var_dump($unsetted);
     //print out all where session is empty
     // var_dump($decoded['rows'][148]);
     // print_r($decoded['rows'][145]);
    
 
     for ($i = 0; $i < count($decoded['rows']); $i++) { 
-
+        if($decoded['rows'])
        
             if($i !=0 && $decoded['rows'][$i]['session']!='' && 
                 $decoded['rows'][$i]['session'] != $decoded['rows'][$i-1]['session'] &&
@@ -52,6 +65,24 @@ if($decoded['rows'] != null){
                     
                     $sessionNames[]=$decoded['rows'][$i]['session'];
                    
+                }
+
+            }
+
+             //this is for location
+             if($i !=0 && $decoded['rows'][$i]['room']!='' && 
+             $decoded['rows'][$i]['room'] != $decoded['rows'][$i-1]['room'] &&
+             in_array($decoded['rows'][$i]['room'],$locations) == false){
+             
+                     $locations[]=$decoded['rows'][$i]['room'];
+                 
+             
+            }else{
+                //this is the first one so add it
+                if($i==0 && $decoded['rows'][$i]['room']!='' ){
+                    
+                    $locations[]=$decoded['rows'][$i]['room'];
+                    
                 }
 
             }
@@ -73,18 +104,21 @@ if($decoded['rows'] != null){
 
             }
             //this is for class name
+        
             if($i !=0 && $decoded['rows'][$i]['category1']!='' && 
                 $decoded['rows'][$i]['category1'] != $decoded['rows'][$i-1]['category1'] &&
                 in_array($decoded['rows'][$i]['category1'],$classNames) == false){
                 $classNames[]=$decoded['rows'][$i]['category1'];
+               
             }else{
                 //this is the first one so add it
                 if($i==0 && $decoded['rows'][$i]['category1']!='' ){
-                    
-                    $classNames[]=$decoded['rows'][$i]['category1'];
                    
-                }
+                    $classNames[]=$decoded['rows'][$i]['category1'];
+             
 
+                }
+          
             }
             //this is for level
             if($i !=0 && $decoded['rows'][$i]['category3']!='' && 
@@ -105,19 +139,20 @@ if($decoded['rows'] != null){
         //change day of week
             if($decoded['rows'][$i]['meeting_days']['mon'] == 1){
                 $dayOfWeek= 'Monday';
-                    } else if($decoded['rows'][$i]['meeting_days']['tue'] == 1){
-                        $dayOfWeek=  'Tuesday';
-                    } else if($decoded['rows'][$i]['meeting_days']['wed'] == 1){
-                        $dayOfWeek=  'Wednesday';
-                    } else if($decoded['rows'][$i]['meeting_days']['thu'] == 1){
-                        $dayOfWeek=  'Thursday';
-                    } else if($decoded['rows'][$i]['meeting_days']['fri'] == 1){
-                        $dayOfWeek=  'Friday';
-                    } else if($decoded['rows'][$i]['meeting_days']['sat'] == 1){
-                        $dayOfWeek=  'Saturday';
-                    } else if($decoded['rows'][$i]['meeting_days']['sun'] == 1){
-                        $dayOfWeek=  'Sunday';
-                    };
+                
+            } else if($decoded['rows'][$i]['meeting_days']['tue'] == 1){
+                $dayOfWeek=  'Tuesday';
+            } else if($decoded['rows'][$i]['meeting_days']['wed'] == 1){
+                $dayOfWeek=  'Wednesday';
+            } else if($decoded['rows'][$i]['meeting_days']['thu'] == 1){
+                $dayOfWeek=  'Thursday';
+            } else if($decoded['rows'][$i]['meeting_days']['fri'] == 1){
+                $dayOfWeek=  'Friday';
+            } else if($decoded['rows'][$i]['meeting_days']['sat'] == 1){
+                $dayOfWeek=  'Saturday';
+            } else if($decoded['rows'][$i]['meeting_days']['sun'] == 1){
+                $dayOfWeek=  'Sunday';
+            };
 
         //change min age
         //if min is 0 or 1, we have to take into consideration the number of months
@@ -183,6 +218,7 @@ if($decoded['rows'] != null){
             "age"=>$decoded['rows'][$i]['category2'],
             "className"=>$decoded['rows'][$i]['category1'],
             "level"=>$decoded['rows'][$i]['category3'],
+            "location"=>$decoded['rows'][$i]['room'],
             // "startTime"=>$decoded['rows'][$i]['start_time'],
             "startTime" => date("g:i", strtotime($decoded['rows'][$i]['start_time'])),
             // "endTime"=>$decoded['rows'][$i]['end_time'],
@@ -217,6 +253,7 @@ if($decoded['rows'] != null){
     usort($classNames, 'strnatcasecmp');
     usort($ageGroups, 'strnatcasecmp');
     usort($sessionNames, 'strnatcasecmp');
+    usort($locations, 'strnatcasecmp');
     
     //levels cannot be alphabetical, must be in "Beginner, Intermediate, Advanced"
     $sortedLevel=[];
@@ -235,18 +272,21 @@ if($decoded['rows'] != null){
     <script type="text/javascript">
             const originalClasses = <?php echo json_encode($array_classes); ?>;
             const sessionNames=<?php echo json_encode($sessionNames); ?>;
+            const removed=<?php echo json_encode($unsetted); ?>;
+            console.log('removed are', removed);
+            console.log(originalClasses);
     </script>
 
     <div class="container-margin">
         <h1 class="text-center">Class Schedules</h1>
         <div class="registerInfo">
-            <p>2024 Winter session registration is now open.</p>
-            <p>Winter camp registration will be opening on Dec. 1, 2023.</p>
+            <p>Pre-registration for those currently in the Winter session: February 24th at noon to February 25th at 4pm</p>
+            <p>General registration opens February 26th at noon</p>
             <p>We strongly recommend <a href="https://app.jackrabbitclass.com/regv2.asp?id=526868" target="_blank">creating an account</a> in advance of registering for activities as spaces fill quickly.</p>
         </div>
         <div class="filter-area">
             <div class="border-bottom">
-                <h3 class="">Class filter</h3>
+                <h2 class="">Class filter</h3>
             </div>
         <div class="filter-grid">
             <div class="session flex margin-top-xsmall">
@@ -274,6 +314,21 @@ if($decoded['rows'] != null){
                             <li class="check">
                                 <input class="checkbox-input" data-type="age" id="age<?php echo $i?>" type="checkbox" value="<?php echo $ageGroups[$i]?>">
                                 <label class="checkbox-text" for="age<?php echo $i?>"><?php echo $ageGroups[$i]?></label>
+                            </li>
+                        </ul>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="location flex margin-top-xsmall">
+               Location
+            </div>
+            <div class="locationCheck">
+                <div class="checkbox-wrap">
+                    <?php for ($i = 0; $i < count($locations); $i++){ ?>
+                        <ul class="checkbox-tag">
+                            <li class="check">
+                                <input class="checkbox-input" data-type="location" id="location<?php echo $i?>" type="checkbox" value="<?php echo $locations[$i]?>">
+                                <label class="checkbox-text" for="location<?php echo $i?>"><?php echo $locations[$i]?></label>
                             </li>
                         </ul>
                     <?php }?>
@@ -330,7 +385,7 @@ if($decoded['rows'] != null){
                             </ul>
                             <ul class="checkbox-tag">
                                 <li class="check">
-                                    <input class="checkbox-input" data-type="week" id="week2" type="checkbox" value="Monday">
+                                    <input class="checkbox-input" data-type="week" id="week2" type="checkbox" value="Tuesday">
                                     <label class="checkbox-text" for="week2">Tuesday</label>
                                 </li>
                             </ul>
@@ -386,7 +441,13 @@ if($decoded['rows'] != null){
             </div>
             
         </div>
-        <button id="search" class="button">Filter Classes</button>
+        <div class="elementor-button-wrapper" style="margin-top: 15px; ">
+            <a class=' elementor-button elementor-button-link elementor-size-md elementor-animation-sink' id='search' style="cursor: pointer;">
+                <span class="elementor-button-content-wrapper elementor-button-content-wrapper">
+                    <span class="elementor-button-text" style="color: white; font-weight: bold; font-size: 18px">Filter Classes</span>
+                </span>
+            </a>
+        </div>
         <div class='reset-filter'>
             <a id="reset">Reset Filter</a>
         </div>

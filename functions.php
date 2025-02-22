@@ -225,21 +225,44 @@ if ( ! function_exists( 'hello_elementor_body_open' ) ) {
 add_action('wp_enqueue_scripts', 'classes_css');
 //add_action('wp_enqueue_scripts', 'classes_css');
 function classes_css() {
-    if (is_page ('11')) { 
-
-        wp_enqueue_style('classes_css', get_stylesheet_directory_uri().'/src/classes.css');}
+    // if (is_page ('1199') ) { 
+	if ( is_page( 1199 ) ){
+        wp_enqueue_style('classes_css', get_stylesheet_directory_uri().'/src/classes.css');
+		// wp_enqueue_style('classes_css', './src/classes.css');
+	}
 }
+//add css
+add_action('wp_enqueue_scripts', 'camps_css');
+//add_action('wp_enqueue_scripts', 'classes_css');
+function camps_css() {
+
+	if ( is_page( 6965 ) ){
+        wp_enqueue_style('camps_css', get_stylesheet_directory_uri().'/src/camps.css');
+		// wp_enqueue_style('camps_css', get_stylesheet_directory().'/src/camps.css');
+	}
+}
+
 
 //add js
 
 add_action('wp_enqueue_scripts', 'classes_js');
 function classes_js() {
-      if (is_page ('11')) { 
+	if ( is_page(11 ) ){
+		// if ( is_page(1199 ) ){	
 		wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
         wp_enqueue_script('classes_js', get_stylesheet_directory_uri().'/src/classes.js', 
-        array(), false, true);
+        array(), true, true);
+	}
+}
+
+add_action('wp_enqueue_scripts', 'camps_js');
+function camps_js() {
+    if ( is_page( 6965) ){
+		wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
+        wp_enqueue_script('camps_js', get_stylesheet_directory_uri().'/src/camps.js', 
+        array(), true, true);
           
-      }
+    }
 }
 
 add_action( 'wp_enqueue_scripts', 'add_font_awesome' );
@@ -264,6 +287,7 @@ wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/
 // add_action('init', 'handle_preflight');
 // function handle_preflight() {
 //     $origin = get_http_origin();
+
 //     if ($origin === 'http://kwgc.local') {
 //         header("Access-Control-Allow-Origin: *");
 //         header("Access-Control-Allow-Methods: POST");

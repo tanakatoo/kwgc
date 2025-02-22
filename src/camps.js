@@ -1,8 +1,9 @@
 
-console.log('got classes!', originalClasses)
-console.log('got classes!', classNames)
+console.log('got classes!', originalClasses);
+console.log('got classes!', classNames);
+alert('here');
 // console.log('got sessionNames!', sessionNames)
-let filteredClasses = []
+let filteredClasses = [];
 
 
 // document.querySelector(".accordion").addEventListener("click", function () {
@@ -451,9 +452,12 @@ function createTableBody(c, table, container, classes) {
 
                 a.href = row.link
                 a.target = "_blank"
+                a.ariaLabel = "Register for camp"
+                a.classList.add('blackLink')
 
                 if (row.opening > 0) {
                     a.innerText = "Register"
+                    a.classList.add("blackLink")
                 } else {
                     span.innerText = "Waitlist"
                 }
