@@ -1,7 +1,6 @@
 
 console.log('got classes new!', originalClasses);
 console.log('got sessionNames!', sessionNames);
-console.log('display?');
 let filteredClasses = [];
 
 

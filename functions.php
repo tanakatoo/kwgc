@@ -226,7 +226,7 @@ add_action('wp_enqueue_scripts', 'classes_css');
 //add_action('wp_enqueue_scripts', 'classes_css');
 function classes_css() {
     // if (is_page ('1199') ) { 
-	if ( is_page( 1199 ) ){
+	if ( is_page( 1199) || is_page(11) ){
         wp_enqueue_style('classes_css', get_stylesheet_directory_uri().'/src/classes.css');
 		// wp_enqueue_style('classes_css', './src/classes.css');
 	}
@@ -236,8 +236,9 @@ add_action('wp_enqueue_scripts', 'camps_css');
 //add_action('wp_enqueue_scripts', 'classes_css');
 function camps_css() {
 
-	if ( is_page( 6965 ) ){
-        wp_enqueue_style('camps_css', get_stylesheet_directory_uri().'/src/camps.css');
+	// if ( is_page( 6965 ) ){
+		if ( is_page(6965) || is_page(16) ){
+	wp_enqueue_style('camps_css', get_stylesheet_directory_uri().'/src/camps.css');
 		// wp_enqueue_style('camps_css', get_stylesheet_directory().'/src/camps.css');
 	}
 }
@@ -247,7 +248,7 @@ function camps_css() {
 
 add_action('wp_enqueue_scripts', 'classes_js');
 function classes_js() {
-	if ( is_page(11 ) ){
+	if ( is_page(1199) || is_page(11) ){
 		// if ( is_page(1199 ) ){	
 		wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
         wp_enqueue_script('classes_js', get_stylesheet_directory_uri().'/src/classes.js', 
@@ -257,10 +258,12 @@ function classes_js() {
 
 add_action('wp_enqueue_scripts', 'camps_js');
 function camps_js() {
-    if ( is_page( 6965) ){
+    // if ( is_page( 6965) ){
+		if ( is_page( 6965) || is_page(16) ){
 		wp_enqueue_script( 'axios', 'https://unpkg.com/axios/dist/axios.min.js' );
-        wp_enqueue_script('camps_js', get_stylesheet_directory_uri().'/src/camps.js', 
-        array(), true, true);
+        // wp_enqueue_script('camps_js', get_stylesheet_directory_uri().'/src/camps.js', 
+        // array(), true, true);
+		wp_enqueue_script('camps_js', get_stylesheet_directory_uri().'/src/camps.js', array(), rand(), true);
           
     }
 }
