@@ -1,10 +1,8 @@
 
 console.log('got classes!', originalClasses);
 console.log('got classes!', classNames);
-alert('here');
 // console.log('got sessionNames!', sessionNames)
 let filteredClasses = [];
-
 
 // document.querySelector(".accordion").addEventListener("click", function () {
 //     /* Toggle between adding and removing the "active" class,
@@ -127,24 +125,26 @@ document.querySelectorAll('[data-type="type"]').forEach(c => {
 
 document.querySelector("#reset").addEventListener('click', e => {
     document.querySelectorAll('[data-type="time"]').forEach(l => {
-        console.log('resetting time')
+
         l.disabled = true;
     })
     document.querySelectorAll('[data-type="time"]').forEach(l => {
-        console.log('making checkbox enabled')
+
         let next = l.nextElementSibling;
         next.classList.add('checkbox-disabled');
     })
     document.querySelectorAll('[data-type="time"]').forEach(c => {
         c.checked = false;
     })
-
+    document.querySelectorAll('[data-type="location"]').forEach(c => {
+        c.checked = false;
+    })
     document.querySelectorAll('[data-type="type"]').forEach(l => {
-        console.log('resetting type')
+
         l.disabled = true;
     })
     document.querySelectorAll('[data-type="type"]').forEach(l => {
-        console.log('making checkbox enabled')
+
         let next = l.nextElementSibling;
         next.classList.add('checkbox-disabled');
     })
@@ -275,6 +275,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
     let criteriaType = new Set()
     let criteriaClass = new Set()
     let criteriaTime = new Set()
+    let criteriaLocation = new Set()
     let availability = false
     // let criteriaWeek = new Set()
     const criteria = document.querySelectorAll(':checked')
@@ -289,6 +290,8 @@ document.querySelector("#search").addEventListener("click", (e) => {
             criteriaClass.add(c.value)
         } else if (c.dataset.type == "time") {
             criteriaTime.add(c.value)
+        } else if (c.dataset.type == "location") {
+            criteriaLocation.add(c.value)
         } else if (c.dataset.type == "available") {
             availability = true
         }
@@ -300,6 +303,7 @@ document.querySelector("#search").addEventListener("click", (e) => {
     console.log(criteriaType)
     console.log(criteriaClass)
     console.log(criteriaTime)
+    console.log('got location', criteriaLocation)
     console.log(availability)
     // console.log(criteriaWeek)
 
@@ -322,6 +326,9 @@ document.querySelector("#search").addEventListener("click", (e) => {
             add = false;
         }
         if (criteriaTime.size > 0 && !criteriaTime.has(gymClass.time) && gymClass.className != 'Adaptive Gymnastics') {
+            add = false;
+        }
+        if (criteriaLocation.size > 0 && !criteriaLocation.has(gymClass.location)) {
             add = false;
         }
         // if (criteriaWeek.size > 0 && !criteriaWeek.has(gymClass.dayOfWeek)) {
@@ -410,7 +417,7 @@ function createTableHead(table, container) {
     td4.appendChild(document.createTextNode("Day(s)"))
     const td5 = document.createElement("td");
     td5.className = "time"
-    td5.appendChild(document.createTextNode("Time"))
+    td5.appendChild(document.createTextNode("Time/Location"))
     const td6 = document.createElement("td");
     td6.className = "tuition"
     td6.appendChild(document.createTextNode("Tuition"))
@@ -576,11 +583,28 @@ function createTableBody(c, table, container, classes) {
 
             //make time column
 
-            const td5 = document.createElement("td");
-            td5.classList.add("time");
-            td5.innerText = `${row.startTime} - ${row.endTime}`;
-            tr.appendChild(td5);
+            const tdtime = document.createElement("td");
+            tdtime.classList.add("time");
 
+
+            const divTime = document.createElement("div");
+            divTime.classList.add("flex");
+            divTime.classList.add("flex-col");
+            const spantime = document.createElement("span");
+            spantime.innerText = `${row.startTime} - ${row.endTime}`;
+
+            const spanLocation = document.createElement("span");
+            spanLocation.classList.add("tab");
+            spanLocation.innerText = row.location;
+
+            divTime.appendChild(spantime);
+            divTime.appendChild(spanLocation);
+
+            tdtime.appendChild(divTime);
+
+            tr.appendChild(tdtime);
+
+            console.log('inner html is', tdtime.innerHTML);
             //make tuition column
             const td6 = document.createElement("td");
             td6.classList.add("tuition");

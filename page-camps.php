@@ -10,6 +10,7 @@ $decoded_original=(json_decode( wp_remote_retrieve_body( $response ),true ));
 $json_pretty = json_encode($decoded_original, JSON_PRETTY_PRINT);
 //find out all the filtering categories and put them in an array
 $sessionNames=array();
+$locations=array();
 $type=array();
 $classNames=array();
 $time=array();
@@ -62,6 +63,24 @@ if($decoded_original['rows'] != null){
 
             // }
             // $decoded['rows'][$i]['session'];
+
+            //this is for location
+            if($i !=0 && $decoded['rows'][$i]['room']!='' && 
+            $decoded['rows'][$i]['room'] != $decoded['rows'][$i-1]['room'] &&
+            in_array($decoded['rows'][$i]['room'],$locations) == false){
+            
+                    $locations[]=$decoded['rows'][$i]['room'];
+                
+            
+        }else{
+            //this is the first one so add it
+            if($i==0 && $decoded['rows'][$i]['room']!='' ){
+                
+                $locations[]=$decoded['rows'][$i]['room'];
+                
+            }
+
+        }
 
             //this is for type
             if($i !=0 && $decoded['rows'][$i]['category2']!='' && 
@@ -189,6 +208,7 @@ if($decoded_original['rows'] != null){
         //create an array with key value pairs for data to display
         $array_classes[$i]=array(
             // "session"=>$decoded['rows'][$i]['session'],
+            "location"=>$decoded['rows'][$i]['room'],
             "type"=>$decoded['rows'][$i]['category2'],
             "className"=>$decoded['rows'][$i]['category1'],
             "time"=>$decoded['rows'][$i]['category3'],
@@ -227,7 +247,7 @@ if($decoded_original['rows'] != null){
     usort($classNames, 'strnatcasecmp');
     usort($type, 'strnatcasecmp');
     usort($time, 'strnatcasecmp'); //sort this morning first then afternoon later
-    
+    usort($locations, 'strnatcasecmp');
 
 
     ?>
@@ -324,6 +344,21 @@ if($decoded_original['rows'] != null){
                             <?php }}?>
                         </div>
                     </div>
+                    <div class="location flex margin-top-xsmall">
+               Location
+            </div>
+            <div class="locationCheck">
+                <div class="checkbox-wrap">
+                    <?php for ($i = 0; $i < count($locations); $i++){ ?>
+                        <ul class="checkbox-tag">
+                            <li class="check">
+                                <input class="checkbox-input" data-type="location" id="location<?php echo $i?>" type="checkbox" value="<?php echo $locations[$i]?>">
+                                <label class="checkbox-text" for="location<?php echo $i?>"><?php echo $locations[$i]?></label>
+                            </li>
+                        </ul>
+                    <?php }?>
+                </div>
+            </div>
                     <!-- <div class="week flex margin-top-xsmall">
                         Day of the Week
                     </div>
