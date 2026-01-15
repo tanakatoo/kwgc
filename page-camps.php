@@ -24,6 +24,7 @@ if($decoded_original['rows'] != null){
     $j=0;
     for ($i = 0; $i < count($decoded_original['rows']); $i++) { 
         if($decoded_original['rows'][$i]['session'] == "PD Days" 
+        || $decoded_original['rows'][$i]['session'] == "2026-27 Camp"
         || $decoded_original['rows'][$i]['session'] == "2025-26 Camp"
         || $decoded_original['rows'][$i]['session'] == "2024-25 Camp"
         || $decoded_original['rows'][$i]['session'] == "2024 Summer Camp"

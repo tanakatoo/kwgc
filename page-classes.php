@@ -26,7 +26,7 @@ if($decoded['rows'] != null){
         return !in_array($row['session'], ['PD Days', 
         "2025 Adapted March Break Camp", 
         "2025 March Break Camp","2023-24 Camp",  
-        "2025-26 Camp", "2024-25 Camp", "2024 Summer Camp", "Camps" ]);
+        "2025-26 Camp", "2026-27 Camp","2024-25 Camp", "2024 Summer Camp", "Camps" ]);
     });
     $decoded['rows'] = array_values($decoded['rows']); //to reindex, when we "unset" like below, the index number doesn't get reindexed
     // for ($i = 0; $i < count($decoded['rows']); $i++) { 
@@ -280,8 +280,7 @@ if($decoded['rows'] != null){
     <div class="container-margin">
         <h1 class="text-center">Class Schedules</h1>
         <div class="registerInfo">
-            <p>Pre-registration for those currently in the Winter session: February 24th at noon to February 25th at 4pm</p>
-            <p>General registration opens February 26th at noon</p>
+            <p>2026 Winter Session registration opens November 18th @12pm for current members and on the 20th @12pm for anyone not registered in our 2025 Fall Session.</p>
             <p>We strongly recommend <a href="https://app.jackrabbitclass.com/regv2.asp?id=526868" target="_blank">creating an account</a> in advance of registering for activities as spaces fill quickly.</p>
         </div>
         <div class="filter-area">
